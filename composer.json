@@ -13,7 +13,8 @@
         "symfony/dependency-injection": "^5.3",
         "nesbot/carbon": "^2.51",
         "illuminate/notifications": "^8.55",
-        "illuminate/bus": "^8.55"
+        "illuminate/bus": "^8.55",
+        "illuminate/pipeline": "^8.55"
     },
     "license": "MIT",
     "autoload": {
@@ -39,7 +40,6 @@
     "scripts": {
         "phpcs": "vendor/bin/phpcs",
         "phpcbf": "vendor/bin/phpcbf",
-        "phpstan": "vendor/bin/phpstan analyse",
         "rector-ci": "vendor/bin/rector process --dry-run --ansi",
         "rector": "vendor/bin/rector process --ansi",
         "pest:test": "pest --colors=always --stop-on-failure"
