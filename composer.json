@@ -21,6 +21,11 @@
             "Worksome\\DataExport\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Lukas Juhas",
@@ -34,6 +39,9 @@
     "scripts": {
         "phpcs": "vendor/bin/phpcs",
         "phpcbf": "vendor/bin/phpcbf",
+        "phpstan": "vendor/bin/phpstan analyse",
+        "rector-ci": "vendor/bin/rector process --dry-run --ansi",
+        "rector": "vendor/bin/rector process --ansi",
         "pest:test": "pest --colors=always --stop-on-failure"
     }
 }
