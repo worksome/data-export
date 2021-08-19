@@ -1,0 +1,39 @@
+{
+    "name": "worksome/data-export",
+    "description": "Worksome's data export package",
+    "type": "library",
+    "require": {
+        "php": "^8.0",
+        "illuminate/database": "^8.55",
+        "illuminate/support": "^8.55",
+        "illuminate/config": "^8.55",
+        "bensampo/laravel-enum": "^3.4",
+        "phpoffice/phpspreadsheet": "^1.18",
+        "guzzlehttp/guzzle": "^7.3",
+        "symfony/dependency-injection": "^5.3",
+        "nesbot/carbon": "^2.51",
+        "illuminate/notifications": "^8.55",
+        "illuminate/bus": "^8.55"
+    },
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Worksome\\DataExport\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Lukas Juhas",
+            "email": "lukas@worksome.com"
+        }
+    ],
+    "require-dev": {
+        "worksome/coding-style": "^0.2.0",
+        "pestphp/pest": "^1.15"
+    },
+    "scripts": {
+        "phpcs": "vendor/bin/phpcs",
+        "phpcbf": "vendor/bin/phpcbf",
+        "pest:test": "pest --colors=always --stop-on-failure"
+    }
+}
