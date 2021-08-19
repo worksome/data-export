@@ -4,7 +4,7 @@ namespace Worksome\DataExport\Processor;
 
 class ContractProcessor extends SqlProcessor
 {
-    public $sql = 'Contracts';
+    public $sql = 'Sql/Contracts.sql';
 
     public $columns = [
         'hire_id' => 'a hire',

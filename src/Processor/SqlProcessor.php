@@ -7,6 +7,7 @@ use Worksome\DataExport\Models\Export;
 use Worksome\DataExport\Processor\Contracts\Processor as ProcessorContract;
 use Illuminate\Database\ConnectionInterface;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
 
 abstract class SqlProcessor implements ProcessorContract
 {
@@ -32,13 +33,13 @@ abstract class SqlProcessor implements ProcessorContract
         return new ProcessorData($data);
     }
 
-    protected function query($sqlFileName, $sqlFileArgs = null): array
+    protected function query($sqlFile, $sqlFileArgs = null): array
     {
         $from = isset($sqlFileArgs['dateFrom']) ? $sqlFileArgs['dateFrom'] : '1970-01-01';
         $to = isset($sqlFileArgs['dateTo']) ? $sqlFileArgs['dateTo'] : Carbon::now()->format('Y-m-d');
 
         $sql = sprintf(
-            file_get_contents((sprintf('%s../../Sql/%s.sql', __DIR__, $sqlFileName))),
+            file_get_contents(App::basePath(sprintf('app/%s', $sqlFile))),
             implode(', ', $sqlFileArgs['companies']),
             $from,
             $to,
