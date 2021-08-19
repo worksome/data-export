@@ -34,8 +34,8 @@
         }
     ],
     "require-dev": {
-        "worksome/coding-style": "^0.2.0",
-        "pestphp/pest": "^1.15"
+        "worksome/coding-style": "0.2.0",
+        "pestphp/pest": "1.15.0"
     },
     "scripts": {
         "phpcs": "vendor/bin/phpcs",
