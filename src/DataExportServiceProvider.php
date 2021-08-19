@@ -10,7 +10,7 @@ use Worksome\DataExport\Generator\GeneratorManager;
 use Worksome\DataExport\Processor\Contracts\Processor;
 use Worksome\DataExport\Processor\ProcessorManager;
 
-class PayrollProvider extends ServiceProvider
+class DataExportServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
