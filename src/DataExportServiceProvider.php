@@ -7,8 +7,6 @@ use Worksome\DataExport\Delivery\Contracts\Delivery;
 use Worksome\DataExport\Delivery\DeliveryManager;
 use Worksome\DataExport\Generator\Contracts\Generator;
 use Worksome\DataExport\Generator\GeneratorManager;
-use Worksome\DataExport\Processor\Contracts\Processor;
-use Worksome\DataExport\Processor\ProcessorManager;
 
 class DataExportServiceProvider extends ServiceProvider
 {
