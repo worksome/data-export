@@ -4,17 +4,13 @@
     "type": "library",
     "require": {
         "php": "^8.0",
-        "illuminate/database": "^8.55",
-        "illuminate/support": "^8.55",
-        "illuminate/config": "^8.55",
         "bensampo/laravel-enum": "^3.4",
         "phpoffice/phpspreadsheet": "^1.18",
         "guzzlehttp/guzzle": "^7.3",
         "symfony/dependency-injection": "^5.3",
         "nesbot/carbon": "^2.51",
-        "illuminate/notifications": "^8.55",
-        "illuminate/bus": "^8.55",
-        "illuminate/pipeline": "^8.55"
+        "nuwave/lighthouse": "^5.19",
+        "laravel/framework": "^8.55"
     },
     "license": "MIT",
     "autoload": {

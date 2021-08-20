@@ -1,0 +1,9 @@
+#import ./Mutations/*.graphql
+#import ./Queries/*.graphql
+#import ./Inputs/*.graphql
+
+scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
+
+# Init root-types
+type Query
+type Mutation

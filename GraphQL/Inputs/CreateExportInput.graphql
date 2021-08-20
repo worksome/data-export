@@ -1,0 +1,19 @@
+input Delivery {
+    type: DeliveryType
+    value: String
+}
+
+input Args {
+    companies: [Int!]!,
+    dateFrom: Date
+    dateTo: Date
+}
+
+input CreateExportInput {
+    type: ExportType!
+    args: Args!
+    accountId: Int!
+    accountType: String!
+    delivery: Delivery!
+    userId: Int!
+}

@@ -1,0 +1,12 @@
+type CreateExportResponse {
+    status: ExportResonseStatus!
+    message: String!
+}
+
+extend type Mutation {
+    """
+    Create export for given input
+    The export url and count of rows will be returned (minus headings)
+    """
+    createExport(input: CreateExportInput!): CreateExportResponse @field(resolver: "\\Worksome\\DataExport\\GraphQL\\Mutations\\CreateExport")
+}
