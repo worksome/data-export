@@ -8,6 +8,12 @@ use Worksome\DataExport\Delivery\DeliveryManager;
 use Worksome\DataExport\Generator\Contracts\Generator;
 use Worksome\DataExport\Generator\GeneratorManager;
 use Illuminate\Contracts\Events\Dispatcher;
+use Nuwave\Lighthouse\Schema\TypeRegistry;
+use Nuwave\Lighthouse\Schema\Types\LaravelEnumType;
+use Worksome\DataExport\Enums\DeliveryType;
+use Worksome\DataExport\Enums\ExportResonseStatus;
+use Worksome\DataExport\Enums\ExportType;
+use Worksome\DataExport\Enums\GeneratorType;
 
 class DataExportServiceProvider extends ServiceProvider
 {
@@ -17,7 +23,7 @@ class DataExportServiceProvider extends ServiceProvider
         $this->app->bind(Delivery::class, DeliveryManager::class);
     }
 
-    public function boot(Dispatcher $dispatcher): void
+    public function boot(Dispatcher $dispatcher, TypeRegistry $typeRegistry): void
     {
         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
 
@@ -29,5 +35,13 @@ class DataExportServiceProvider extends ServiceProvider
             }
         );
 
+        $types = collect([
+            ExportType::class,
+            ExportResonseStatus::class,
+            DeliveryType::class,
+            GeneratorType::class,
+        ]);
+
+        $types->each(fn($type) => $typeRegistry->register(new LaravelEnumType($type)));
     }
 }
