@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "709d3842d5975466b32d9ee2530ec3ff",
+    "content-hash": "04711bf7345314b56af6369d1d3c2f12",
     "packages": [
         {
             "name": "bensampo/laravel-enum",
@@ -8049,16 +8049,16 @@
         },
         {
             "name": "phpstan/phpstan",
-            "version": "0.12.94",
+            "version": "0.12.95",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "3d0ba4c198a24e3c3fc489f3ec6ac9612c4be5d6"
+                "reference": "4ffddfe86e85dcc494a47e5f3dcfd1a2dccdce58"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/3d0ba4c198a24e3c3fc489f3ec6ac9612c4be5d6",
-                "reference": "3d0ba4c198a24e3c3fc489f3ec6ac9612c4be5d6",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/4ffddfe86e85dcc494a47e5f3dcfd1a2dccdce58",
+                "reference": "4ffddfe86e85dcc494a47e5f3dcfd1a2dccdce58",
                 "shasum": ""
             },
             "require": {
@@ -8089,7 +8089,7 @@
             "description": "PHPStan - PHP Static Analysis Tool",
             "support": {
                 "issues": "https://github.com/phpstan/phpstan/issues",
-                "source": "https://github.com/phpstan/phpstan/tree/0.12.94"
+                "source": "https://github.com/phpstan/phpstan/tree/0.12.95"
             },
             "funding": [
                 {
@@ -8109,7 +8109,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-07-30T09:05:27+00:00"
+            "time": "2021-08-20T12:53:41+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -8584,21 +8584,21 @@
         },
         {
             "name": "rector/rector",
-            "version": "0.11.48",
+            "version": "0.11.49",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "d3b80f641be8ae46b02d58ad31582d92dcda8e88"
+                "reference": "fdf11ed923d79c1777f993ef755fc8fe111a25a2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/d3b80f641be8ae46b02d58ad31582d92dcda8e88",
-                "reference": "d3b80f641be8ae46b02d58ad31582d92dcda8e88",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/fdf11ed923d79c1777f993ef755fc8fe111a25a2",
+                "reference": "fdf11ed923d79c1777f993ef755fc8fe111a25a2",
                 "shasum": ""
             },
             "require": {
                 "php": "^7.1|^8.0",
-                "phpstan/phpstan": "0.12.94"
+                "phpstan/phpstan": "0.12.95"
             },
             "conflict": {
                 "phpstan/phpdoc-parser": "<=0.5.3",
@@ -8616,7 +8616,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "0.10-dev"
+                    "dev-main": "0.11-dev"
                 }
             },
             "autoload": {
@@ -8631,7 +8631,7 @@
             "description": "Prefixed and PHP 7.1 downgraded version of rector/rector",
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/0.11.48"
+                "source": "https://github.com/rectorphp/rector/tree/0.11.49"
             },
             "funding": [
                 {
@@ -8639,7 +8639,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-08-17T09:00:25+00:00"
+            "time": "2021-08-23T11:18:30+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -9718,16 +9718,16 @@
         },
         {
             "name": "slevomat/coding-standard",
-            "version": "7.0.13",
+            "version": "7.0.14",
             "source": {
                 "type": "git",
                 "url": "https://github.com/slevomat/coding-standard.git",
-                "reference": "122a9bf9a4a2195f74100f47dfb8375982f43cc9"
+                "reference": "15b2b4630c148775debea8e412bc7e128d9868a3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/122a9bf9a4a2195f74100f47dfb8375982f43cc9",
-                "reference": "122a9bf9a4a2195f74100f47dfb8375982f43cc9",
+                "url": "https://api.github.com/repos/slevomat/coding-standard/zipball/15b2b4630c148775debea8e412bc7e128d9868a3",
+                "reference": "15b2b4630c148775debea8e412bc7e128d9868a3",
                 "shasum": ""
             },
             "require": {
@@ -9738,12 +9738,12 @@
             },
             "require-dev": {
                 "phing/phing": "2.16.4",
-                "php-parallel-lint/php-parallel-lint": "1.3.0",
-                "phpstan/phpstan": "0.12.93",
+                "php-parallel-lint/php-parallel-lint": "1.3.1",
+                "phpstan/phpstan": "0.12.96",
                 "phpstan/phpstan-deprecation-rules": "0.12.6",
-                "phpstan/phpstan-phpunit": "0.12.21",
-                "phpstan/phpstan-strict-rules": "0.12.10",
-                "phpunit/phpunit": "7.5.20|8.5.5|9.5.7"
+                "phpstan/phpstan-phpunit": "0.12.22",
+                "phpstan/phpstan-strict-rules": "0.12.11",
+                "phpunit/phpunit": "7.5.20|8.5.5|9.5.8"
             },
             "type": "phpcodesniffer-standard",
             "extra": {
@@ -9763,7 +9763,7 @@
             "description": "Slevomat Coding Standard for PHP_CodeSniffer complements Consistence Coding Standard by providing sniffs with additional checks.",
             "support": {
                 "issues": "https://github.com/slevomat/coding-standard/issues",
-                "source": "https://github.com/slevomat/coding-standard/tree/7.0.13"
+                "source": "https://github.com/slevomat/coding-standard/tree/7.0.14"
             },
             "funding": [
                 {
@@ -9775,7 +9775,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-07-29T14:30:22+00:00"
+            "time": "2021-08-26T12:17:56+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -9996,16 +9996,16 @@
         },
         {
             "name": "worksome/coding-style",
-            "version": "v0.2.0",
+            "version": "v0.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/worksome/coding-style.git",
-                "reference": "b1aa49623fb6d7daa2375266518747575d071572"
+                "reference": "bb445ad57587529f5962539354a1619c6b151b9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/worksome/coding-style/zipball/b1aa49623fb6d7daa2375266518747575d071572",
-                "reference": "b1aa49623fb6d7daa2375266518747575d071572",
+                "url": "https://api.github.com/repos/worksome/coding-style/zipball/bb445ad57587529f5962539354a1619c6b151b9f",
+                "reference": "bb445ad57587529f5962539354a1619c6b151b9f",
                 "shasum": ""
             },
             "require": {
@@ -10042,9 +10042,9 @@
             "description": "Worksomes coding style",
             "support": {
                 "issues": "https://github.com/worksome/coding-style/issues",
-                "source": "https://github.com/worksome/coding-style/tree/v0.2.0"
+                "source": "https://github.com/worksome/coding-style/tree/v0.3.0"
             },
-            "time": "2021-08-05T11:50:09+00:00"
+            "time": "2021-08-26T11:55:49+00:00"
         }
     ],
     "aliases": [],
