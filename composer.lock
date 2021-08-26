@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "04711bf7345314b56af6369d1d3c2f12",
+    "content-hash": "5fa3651f8f4167b14d56201df960a665",
     "packages": [
         {
             "name": "bensampo/laravel-enum",
@@ -9996,16 +9996,16 @@
         },
         {
             "name": "worksome/coding-style",
-            "version": "v0.3.0",
+            "version": "v0.3.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/worksome/coding-style.git",
-                "reference": "bb445ad57587529f5962539354a1619c6b151b9f"
+                "reference": "6c1c4d369a699ae5eb832c2d20873ac420eb903b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/worksome/coding-style/zipball/bb445ad57587529f5962539354a1619c6b151b9f",
-                "reference": "bb445ad57587529f5962539354a1619c6b151b9f",
+                "url": "https://api.github.com/repos/worksome/coding-style/zipball/6c1c4d369a699ae5eb832c2d20873ac420eb903b",
+                "reference": "6c1c4d369a699ae5eb832c2d20873ac420eb903b",
                 "shasum": ""
             },
             "require": {
@@ -10042,9 +10042,9 @@
             "description": "Worksomes coding style",
             "support": {
                 "issues": "https://github.com/worksome/coding-style/issues",
-                "source": "https://github.com/worksome/coding-style/tree/v0.3.0"
+                "source": "https://github.com/worksome/coding-style/tree/v0.3.1"
             },
-            "time": "2021-08-26T11:55:49+00:00"
+            "time": "2021-08-26T12:37:14+00:00"
         }
     ],
     "aliases": [],
