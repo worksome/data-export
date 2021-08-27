@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5fa3651f8f4167b14d56201df960a665",
+    "content-hash": "225eef12e705a249ef6c67bddc6775dc",
     "packages": [
         {
             "name": "bensampo/laravel-enum",
@@ -7299,16 +7299,16 @@
         },
         {
             "name": "nunomaduro/collision",
-            "version": "v5.8.0",
+            "version": "v5.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nunomaduro/collision.git",
-                "reference": "0c3c393462eada1233513664e2d22bb9f69ca393"
+                "reference": "63456f5c3e8c4bc52bd573e5c85674d64d84fd43"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/0c3c393462eada1233513664e2d22bb9f69ca393",
-                "reference": "0c3c393462eada1233513664e2d22bb9f69ca393",
+                "url": "https://api.github.com/repos/nunomaduro/collision/zipball/63456f5c3e8c4bc52bd573e5c85674d64d84fd43",
+                "reference": "63456f5c3e8c4bc52bd573e5c85674d64d84fd43",
                 "shasum": ""
             },
             "require": {
@@ -7383,7 +7383,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2021-08-13T14:23:01+00:00"
+            "time": "2021-08-26T15:32:09+00:00"
         },
         {
             "name": "nunomaduro/larastan",
@@ -7484,16 +7484,16 @@
         },
         {
             "name": "pestphp/pest",
-            "version": "v1.16.0",
+            "version": "v1.17.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/pestphp/pest.git",
-                "reference": "eca5f89e595884e26860b8aec5cfc7d892e9f942"
+                "reference": "075c31bc78a6ae864de0291c07692b628fbcda56"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/pestphp/pest/zipball/eca5f89e595884e26860b8aec5cfc7d892e9f942",
-                "reference": "eca5f89e595884e26860b8aec5cfc7d892e9f942",
+                "url": "https://api.github.com/repos/pestphp/pest/zipball/075c31bc78a6ae864de0291c07692b628fbcda56",
+                "reference": "075c31bc78a6ae864de0291c07692b628fbcda56",
                 "shasum": ""
             },
             "require": {
@@ -7560,7 +7560,7 @@
             ],
             "support": {
                 "issues": "https://github.com/pestphp/pest/issues",
-                "source": "https://github.com/pestphp/pest/tree/v1.16.0"
+                "source": "https://github.com/pestphp/pest/tree/v1.17.0"
             },
             "funding": [
                 {
@@ -7588,7 +7588,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2021-08-19T16:07:45+00:00"
+            "time": "2021-08-26T20:17:03+00:00"
         },
         {
             "name": "pestphp/pest-plugin",
