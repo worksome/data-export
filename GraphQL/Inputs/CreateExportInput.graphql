@@ -4,7 +4,7 @@ input Delivery {
 }
 
 input Args {
-    companies: [Int!]!,
+    companies: [Int!],
     dateFrom: Date
     dateTo: Date
 }
