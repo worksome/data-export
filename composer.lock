@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9f572301811c43270ed9893450a0c38a",
+    "content-hash": "7efeda8998044773994fcf0f7cb0c357",
     "packages": [
         {
             "name": "bensampo/laravel-enum",
@@ -8584,16 +8584,16 @@
         },
         {
             "name": "rector/rector",
-            "version": "0.11.51",
+            "version": "0.11.52",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rectorphp/rector.git",
-                "reference": "5c16de935192421dc3716002a65ed84666b870a6"
+                "reference": "0a4e8e9f91100c55ae01a6ef706cd8a8f67f17ae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rectorphp/rector/zipball/5c16de935192421dc3716002a65ed84666b870a6",
-                "reference": "5c16de935192421dc3716002a65ed84666b870a6",
+                "url": "https://api.github.com/repos/rectorphp/rector/zipball/0a4e8e9f91100c55ae01a6ef706cd8a8f67f17ae",
+                "reference": "0a4e8e9f91100c55ae01a6ef706cd8a8f67f17ae",
                 "shasum": ""
             },
             "require": {
@@ -8631,7 +8631,7 @@
             "description": "Prefixed and PHP 7.1 downgraded version of rector/rector",
             "support": {
                 "issues": "https://github.com/rectorphp/rector/issues",
-                "source": "https://github.com/rectorphp/rector/tree/0.11.51"
+                "source": "https://github.com/rectorphp/rector/tree/0.11.52"
             },
             "funding": [
                 {
@@ -8639,7 +8639,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2021-08-26T17:03:37+00:00"
+            "time": "2021-08-27T13:02:41+00:00"
         },
         {
             "name": "sebastian/cli-parser",
@@ -9996,16 +9996,16 @@
         },
         {
             "name": "worksome/coding-style",
-            "version": "v0.3.3",
+            "version": "v0.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/worksome/coding-style.git",
-                "reference": "f95e24c975d75a23e342c3edf08d526553792440"
+                "reference": "1c1e29fc9b2c0086f7ced0ca05a651bbe1b77cbb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/worksome/coding-style/zipball/f95e24c975d75a23e342c3edf08d526553792440",
-                "reference": "f95e24c975d75a23e342c3edf08d526553792440",
+                "url": "https://api.github.com/repos/worksome/coding-style/zipball/1c1e29fc9b2c0086f7ced0ca05a651bbe1b77cbb",
+                "reference": "1c1e29fc9b2c0086f7ced0ca05a651bbe1b77cbb",
                 "shasum": ""
             },
             "require": {
@@ -10013,7 +10013,7 @@
                 "jetbrains/phpstorm-attributes": "^1.0",
                 "nunomaduro/larastan": "^0.7",
                 "php": "^8.0",
-                "rector/rector": "^0.11",
+                "rector/rector": "^0.11.51",
                 "worksome/code-sniffer": "^0.2"
             },
             "require-dev": {
@@ -10042,9 +10042,9 @@
             "description": "Worksomes coding style",
             "support": {
                 "issues": "https://github.com/worksome/coding-style/issues",
-                "source": "https://github.com/worksome/coding-style/tree/v0.3.3"
+                "source": "https://github.com/worksome/coding-style/tree/v0.3.4"
             },
-            "time": "2021-08-27T07:53:41+00:00"
+            "time": "2021-08-27T08:45:45+00:00"
         }
     ],
     "aliases": [],
