@@ -19,8 +19,8 @@ class DataExportServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->bind(Generator::class, GeneratorManager::class);
-        $this->app->bind(Delivery::class, DeliveryManager::class);
+        $this->app->singleton(Generator::class, GeneratorManager::class);
+        $this->app->singleton(Delivery::class, DeliveryManager::class);
     }
 
     public function boot(Dispatcher $dispatcher, TypeRegistry $typeRegistry): void
