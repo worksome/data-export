@@ -1,5 +1,5 @@
 type CreateExportResponse {
-    status: ExportResonseStatus!
+    status: ExportResponseStatus!
     message: String!
 }
 

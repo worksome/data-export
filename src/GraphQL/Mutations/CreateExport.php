@@ -2,7 +2,7 @@
 
 namespace Worksome\DataExport\GraphQL\Mutations;
 
-use Worksome\DataExport\Enums\ExportResonseStatus;
+use Worksome\DataExport\Enums\ExportResponseStatus;
 use Worksome\DataExport\Events\ExportInitialised;
 use Worksome\DataExport\Export\CreateExport as CreateExportService;
 use Worksome\DataExport\Export\CreateExportDTO;
@@ -25,7 +25,7 @@ class CreateExport
         event(new ExportInitialised($export));
 
         return [
-            'status' => ExportResonseStatus::SUCCESS,
+            'status' => ExportResponseStatus::SUCCESS,
             'message' => __('Export initialised. You\'ll receive an email when the export is completed.'),
         ];
     }

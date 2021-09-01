@@ -11,7 +11,7 @@ use Nuwave\Lighthouse\Schema\Types\LaravelEnumType;
 use Worksome\DataExport\Delivery\Contracts\Delivery;
 use Worksome\DataExport\Delivery\DeliveryManager;
 use Worksome\DataExport\Enums\DeliveryType;
-use Worksome\DataExport\Enums\ExportResonseStatus;
+use Worksome\DataExport\Enums\ExportResponseStatus;
 use Worksome\DataExport\Enums\ExportType;
 use Worksome\DataExport\Enums\GeneratorType;
 use Worksome\DataExport\Generator\Contracts\Generator;
@@ -52,7 +52,7 @@ class DataExportServiceProvider extends ServiceProvider
     {
         $types = collect([
             ExportType::class,
-            ExportResonseStatus::class,
+            ExportResponseStatus::class,
             DeliveryType::class,
             GeneratorType::class,
         ]);
