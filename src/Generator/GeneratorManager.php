@@ -2,29 +2,18 @@
 
 namespace Worksome\DataExport\Generator;
 
-use Worksome\DataExport\Generator\Contracts\Generator as GeneratorContract;
-use Illuminate\Contracts\Container\Container;
-use Worksome\DataExport\Enums\GeneratorType;
-use Worksome\DataExport\Exceptions\InvalidGeneratorTypeException;
-use Worksome\DataExport\Processor\ProcessorData;
+use Illuminate\Support\Manager;
+use Worksome\DataExport\Generator\Contracts\GeneratorDriver as GeneratorDriverContract;
 
-class GeneratorManager implements GeneratorContract {
-    public function __construct(
-        private Container $container,
-        public string $format = 'CSV'
-    ) {}
-
-    public function generate(ProcessorData $processorData): GeneratorFile
+class GeneratorManager extends Manager
+{
+    public function createCsvDriver(): GeneratorDriverContract
     {
-        $generator = $this->getGenerator();
-        return $generator->generate($processorData);
+        return new CsvDriver();
     }
 
-    protected function getGenerator(): GeneratorContract
+    public function getDefaultDriver(): string
     {
-        return match ($this->format) {
-            GeneratorType::CSV => $this->container->get(CsvGenerator::class),
-            default => throw new InvalidGeneratorTypeException('Invalid generator type.')
-        };
+        return 'csv';
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Worksome\DataExport\Generator;
 
-use Worksome\DataExport\Generator\Contracts\Generator as GeneratorContract;
+use Worksome\DataExport\Generator\Contracts\GeneratorDriver;
 use GuzzleHttp\Psr7\Stream;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
@@ -12,10 +12,12 @@ use PhpOffice\PhpSpreadsheet\Writer\IWriter;
 use Illuminate\Support\Str;
 use Worksome\DataExport\Processor\ProcessorData;
 
-class CsvGenerator implements GeneratorContract {
+class CsvDriver implements GeneratorDriver
+{
     public function generate(ProcessorData $processorData): GeneratorFile
     {
         $csv = $this->exportToCsv($processorData);
+
         return $this->saveToStorage(Str::random(40), $csv, $processorData);
     }
 
@@ -35,6 +37,7 @@ class CsvGenerator implements GeneratorContract {
     public function saveToStorage($filenameWithoutExtension, $content, ProcessorData $processorData): GeneratorFile
     {
         $filepath = sprintf('exports/%s.csv', $filenameWithoutExtension);
+
         Storage::put($filepath, $content);
 
         return new GeneratorFile(
@@ -42,7 +45,7 @@ class CsvGenerator implements GeneratorContract {
             size: Storage::size($filepath),
             url: Storage::url($filepath),
             count: count($processorData->getData()),
-            mimeType: 'text/csv'
+            mimeType: 'text/csv',
         );
     }
 
@@ -64,9 +67,11 @@ class CsvGenerator implements GeneratorContract {
 
         $data = Collection::make($entries);
         $data = $data->map(fn ($item) => $item);
+
         $spreadsheetData = $data
-            ->prepend(array_keys($data->first()))
+            ->prepend(array_keys($data->first() ?? []))
             ->toArray();
+
         $sheet->fromArray($spreadsheetData);
 
         return $spreadsheet;

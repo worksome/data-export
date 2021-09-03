@@ -4,7 +4,6 @@ namespace Worksome\DataExport\Exceptions;
 
 use Exception;
 
-class InvalidGeneratorTypeException extends Exception
+class InvalidProcessorException extends Exception
 {
-    //
 }

@@ -10,25 +10,17 @@ class CreateExportsTable extends Migration
     {
         Schema::create('exports', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')
-                ->index();
-            $table->unsignedBigInteger('account_id')
-                ->index();
-            $table->string('account_type')
-                ->index();
-            $table->string('path')
-                ->nullable();
-            $table->string('status')
-                ->index();
-            $table->string('type')
-                ->index();
-            $table->text('delivery');
-            $table->text('args')
-                ->nullable();
-            $table->bigInteger('size')
-                ->nullable();
-            $table->string('mime_type')
-                ->nullable();
+            $table->unsignedBigInteger('user_id')->index();
+            $table->unsignedBigInteger('account_id')->index();
+            $table->string('account_type')->index();
+            $table->string('path')->nullable();
+            $table->string('status')->index();
+            $table->string('type')->index();
+            $table->string('generator_type');
+            $table->text('deliveries');
+            $table->text('args');
+            $table->bigInteger('size')->nullable();
+            $table->string('mime_type')->nullable();
             $table->timestamps();
         });
     }
