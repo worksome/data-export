@@ -1,17 +1,18 @@
 <?php
 
-namespace Worksome\DataExport\Export;
+namespace Worksome\DataExport\Services;
 
 use Worksome\DataExport\Enums\ExportStatus;
 use Worksome\DataExport\Models\Export;
 
 class UpdateExport
 {
-    protected UpdateExportDTO $dto;
+    private UpdateExportDTO $dto;
 
     public function fromDTO(UpdateExportDTO $dto): self
     {
         $this->dto = $dto;
+
         return $this;
     }
 

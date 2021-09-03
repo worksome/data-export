@@ -8,21 +8,20 @@ use Nuwave\Lighthouse\Events\BuildSchemaString;
 use Nuwave\Lighthouse\Schema\Source\SchemaStitcher;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Nuwave\Lighthouse\Schema\Types\LaravelEnumType;
-use Worksome\DataExport\Delivery\Contracts\Delivery;
 use Worksome\DataExport\Delivery\DeliveryManager;
 use Worksome\DataExport\Enums\DeliveryType;
 use Worksome\DataExport\Enums\ExportResponseStatus;
-use Worksome\DataExport\Enums\ExportType;
 use Worksome\DataExport\Enums\GeneratorType;
-use Worksome\DataExport\Generator\Contracts\Generator;
 use Worksome\DataExport\Generator\GeneratorManager;
+use Worksome\DataExport\Processor\ProcessorRepository;
 
 class DataExportServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->singleton(Generator::class, GeneratorManager::class);
-        $this->app->singleton(Delivery::class, DeliveryManager::class);
+        $this->app->singleton(DeliveryManager::class);
+        $this->app->singleton(GeneratorManager::class);
+        $this->app->singleton(ProcessorRepository::class);
     }
 
     public function boot(Dispatcher $dispatcher, TypeRegistry $typeRegistry): void
@@ -50,13 +49,14 @@ class DataExportServiceProvider extends ServiceProvider
 
     private function registerGraphQLTypes(TypeRegistry $typeRegistry): void
     {
-        $types = collect([
-            ExportType::class,
+        $types = [
             ExportResponseStatus::class,
             DeliveryType::class,
             GeneratorType::class,
-        ]);
+        ];
 
-        $types->each(fn($type) => $typeRegistry->register(new LaravelEnumType($type)));
+        foreach ($types as $type) {
+            $typeRegistry->register(new LaravelEnumType($type));
+        }
     }
 }

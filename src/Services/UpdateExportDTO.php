@@ -1,6 +1,6 @@
 <?php
 
-namespace Worksome\DataExport\Export;
+namespace Worksome\DataExport\Services;
 
 use Worksome\DataExport\Models\Export;
 use JetBrains\PhpStorm\Pure;
@@ -13,7 +13,7 @@ class UpdateExportDTO
         private Export $export,
         private GeneratorFile $generatorFile,
     )
-    { }
+    {}
 
     public static function fromGeneratorFile(GeneratorFile $generatorFile, Export $export): self
     {

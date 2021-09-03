@@ -3,42 +3,40 @@
 namespace Worksome\DataExport\Models;
 
 use BenSampo\Enum\Traits\CastsEnums;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Model;
-use Worksome\DataExport\Enums\DeliveryType;
-use Worksome\DataExport\Enums\ExportType;
 
 class Export extends Model
 {
-    use HasFactory;
     use CastsEnums;
 
     protected $fillable = [
-        'user_id', 'account_id', 'account_type', 'delivery', 'path', 'status',
-        'type', 'args', 'size', 'mime_type'
+        'user_id',
+        'account_id',
+        'account_type',
+        'path',
+        'status',
+        'type',
+        'generator_type',
+        'deliveries',
+        'args',
+        'size',
+        'mime_type',
     ];
 
     protected $casts = [
         'args' => 'array',
-        'delivery' => 'array'
+        'deliveries' => AsCollection::class,
     ];
 
-    protected $enumCasts = [
-        'type' => ExportType::class,
-    ];
-
-    public function getDeliveryType(): string
+    public function getDeliveryChannels(): array
     {
-        return $this->delivery['type'];
+        return $this->deliveries->pluck('type')->toArray();
     }
 
-    public function getDeliveryEmail(): ?string
+    public function getDeliveryFor(string $type): ?array
     {
-        if ($this->getDeliveryType() === DeliveryType::EMAIL) {
-            return $this->delivery['value'];
-        }
-
-        return null;
+        return $this->deliveries->where('type', $type)->first();
     }
 
     public function getFormattedSize(): string

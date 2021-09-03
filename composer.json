@@ -2,17 +2,31 @@
     "name": "worksome/data-export",
     "description": "Worksome's data export package",
     "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Lukas Juhas",
+            "email": "lukas@worksome.com"
+        }
+    ],
     "require": {
         "php": "^8.0",
         "bensampo/laravel-enum": "^3.4",
-        "phpoffice/phpspreadsheet": "^1.18",
         "guzzlehttp/guzzle": "^7.3",
-        "symfony/dependency-injection": "^5.3",
+        "illuminate/container": "^8.58",
+        "illuminate/contracts": "^8.58",
+        "illuminate/database": "^8.58",
+        "illuminate/support": "^8.58",
         "nesbot/carbon": "^2.51",
         "nuwave/lighthouse": "^5.19",
-        "laravel/framework": "^8.55"
+        "phpoffice/phpspreadsheet": "^1.18",
+        "symfony/dependency-injection": "^5.3"
     },
-    "license": "MIT",
+    "require-dev": {
+        "orchestra/testbench": "^6.20",
+        "pestphp/pest": "1.18.0",
+        "worksome/coding-style": "0.3.4"
+    },
     "autoload": {
         "psr-4": {
             "Worksome\\DataExport\\": "src/"
@@ -20,18 +34,13 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Tests\\": "tests/"
+            "Worksome\\DataExport\\Tests\\": "tests/"
         }
     },
-    "authors": [
-        {
-            "name": "Lukas Juhas",
-            "email": "lukas@worksome.com"
-        }
-    ],
-    "require-dev": {
-        "worksome/coding-style": "0.3.4",
-        "pestphp/pest": "1.18.0"
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
     },
     "scripts": {
         "phpcs": "vendor/bin/phpcs",

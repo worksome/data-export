@@ -1,17 +1,18 @@
 <?php
 
-namespace Worksome\DataExport\Export;
+namespace Worksome\DataExport\Services;
 
 use Worksome\DataExport\Enums\ExportStatus;
 use Worksome\DataExport\Models\Export;
 
 class CreateExport
 {
-    protected CreateExportDTO $dto;
+    private CreateExportDTO $dto;
 
     public function fromDTO(CreateExportDTO $dto): self
     {
         $this->dto = $dto;
+
         return $this;
     }
 
@@ -21,9 +22,10 @@ class CreateExport
             'user_id' => $this->dto->getUserId(),
             'account_id' => $this->dto->getAccountId(),
             'account_type' => $this->dto->getAccountType(),
-            'delivery' => $this->dto->getDelivery(),
             'status' => ExportStatus::AWAITING,
             'type' => $this->dto->getType(),
+            'generator_type' => $this->dto->getGeneratorType(),
+            'deliveries' => $this->dto->getDeliveries(),
             'args' => $this->dto->getArgs(),
         ]);
     }

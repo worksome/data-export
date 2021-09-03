@@ -4,8 +4,8 @@ namespace Worksome\DataExport\GraphQL\Mutations;
 
 use Worksome\DataExport\Enums\ExportResponseStatus;
 use Worksome\DataExport\Events\ExportInitialised;
-use Worksome\DataExport\Export\CreateExport as CreateExportService;
-use Worksome\DataExport\Export\CreateExportDTO;
+use Worksome\DataExport\Services\CreateExport as CreateExportService;
+use Worksome\DataExport\Services\CreateExportDTO;
 
 class CreateExport
 {

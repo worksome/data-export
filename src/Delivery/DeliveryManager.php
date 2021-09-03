@@ -2,28 +2,18 @@
 
 namespace Worksome\DataExport\Delivery;
 
-use Worksome\DataExport\Models\Export;
-use Worksome\DataExport\Delivery\Contracts\Delivery as DeliveryContract;
-use Illuminate\Contracts\Container\Container;
-use Worksome\DataExport\Enums\DeliveryType;
-use Worksome\DataExport\Exceptions\InvalidDeliveryTypeException;
+use Illuminate\Support\Manager;
+use Worksome\DataExport\Delivery\Contracts\DeliveryDriver as DeliveryDriverContract;
 
-class DeliveryManager implements DeliveryContract {
-    public function __construct(
-        private Container $container
-    ) {}
-
-    public function deliver(Export $export): void
+class DeliveryManager extends Manager
+{
+    public function createEmailDriver(): DeliveryDriverContract
     {
-        $delivery = $this->getDelivery($export);
-        $delivery->deliver($export);
+        return new EmailDriver();
     }
 
-    protected function getDelivery(Export $export): DeliveryContract
+    public function getDefaultDriver(): string
     {
-        return match ($export->getDeliveryType()) {
-            DeliveryType::EMAIL => $this->container->get(EmailDelivery::class),
-            default => throw new InvalidDeliveryTypeException('Invalid delivery type.')
-        };
+        return 'email';
     }
 }
