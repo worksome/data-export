@@ -4,8 +4,23 @@ namespace Worksome\DataExport\Models;
 
 use BenSampo\Enum\Traits\CastsEnums;
 use Illuminate\Database\Eloquent\Casts\AsCollection;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property int $id
+ * @property int $user_id
+ * @property int $account_id
+ * @property string $account_type
+ * @property string $path
+ * @property string $status
+ * @property string $type
+ * @property string $generator_type
+ * @property Collection $deliveries
+ * @property array $args
+ * @property int $size
+ * @property string $mime_type
+ */
 class Export extends Model
 {
     use CastsEnums;
