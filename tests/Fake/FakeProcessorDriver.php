@@ -12,8 +12,9 @@ class FakeProcessorDriver extends EloquentProcessor
     public string $type = 'fake';
 
     public array $columns = [
-        'id',
+        'id' => 'User ID',
         'name',
+        'is_admin' => 'Is Admin',
     ];
 
     public function process(Export $export): ProcessorData

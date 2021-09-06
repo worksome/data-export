@@ -68,8 +68,14 @@ abstract class EloquentProcessor implements ProcessorDriver
                 // Only let through the desired columns
                 $item = $item->only($allowedColumns->concat($additionalKeys));
 
-                // convert numbers to string
-                $item = $item->map(fn ($value) => strval($value));
+                // Ensure some values are properly casted
+                $item = $item->map(function ($value) {
+                    if (is_bool($value)) {
+                        $value = (int) $value;
+                    }
+
+                    return strval($value);
+                });
 
                 return $item->keyBy(function ($value, $key) use ($columns) {
                     return $columns->get($key, $key);
