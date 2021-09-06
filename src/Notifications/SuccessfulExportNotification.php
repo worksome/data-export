@@ -14,7 +14,8 @@ class SuccessfulExportNotification extends Notification
 
     public function __construct(
         public Export $export
-    ) {}
+    ) {
+    }
 
     public function via($notifiable): array
     {
@@ -24,9 +25,9 @@ class SuccessfulExportNotification extends Notification
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
-            ->line(__('Your export is ready.'))
-            ->line(sprintf(__('Type: %s'), $this->export->type))
-            ->line(sprintf(__('Size: %s'), $this->export->getFormattedSize()))
-            ->action(__('Download Export'), Storage::url($this->export->path));
+            ->subject(__('Your data export is ready for you!'))
+            ->line(__('Hi there'))
+            ->line(sprintf(__('Your %s export is ready to download now.'), $this->export->type))
+            ->action(__('Download export'), Storage::url($this->export->path));
     }
 }
