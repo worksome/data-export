@@ -18,6 +18,7 @@ abstract class TestCase extends OrchestraTestCase
             $table->increments('id');
             $table->string('name');
             $table->string('email');
+            $table->boolean('is_admin')->default(0);
             $table->timestamps();
         });
     }

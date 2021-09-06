@@ -19,7 +19,15 @@ it('can process a query that returns no results', function () {
 });
 
 it('can process a query that returns results with filtered columns', function () {
-    UserFactory::new()->times(10)->create();
+    UserFactory::new()->create([
+        'name'     => 'User One',
+        'is_admin' => true,
+    ]);
+
+    UserFactory::new()->create([
+        'name'     => 'User Two',
+        'is_admin' => false,
+    ]);
 
     $export = new Export();
 
@@ -30,9 +38,16 @@ it('can process a query that returns results with filtered columns', function ()
     $data = $processedData->getData();
 
     expect($data)->not->toBeEmpty();
+    expect($data)->toHaveCount(2);
 
-    expect(array_keys($data[0]))->toBe([
-        'id',
-        'name',
+    expect($data[0])->toBe([
+        'User ID'  => '1',
+        'name'     => 'User One',
+        'Is Admin' => '1',
+    ]);
+    expect($data[1])->toBe([
+        'User ID'  => '2',
+        'name'     => 'User Two',
+        'Is Admin' => '0',
     ]);
 });
