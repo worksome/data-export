@@ -46,7 +46,7 @@ abstract class EloquentProcessor implements ProcessorDriver
             }
 
             return $key;
-       });
+        });
     }
 
     protected function filterQuery(Builder $query): array
@@ -67,6 +67,9 @@ abstract class EloquentProcessor implements ProcessorDriver
 
                 // Only let through the desired columns
                 $item = $item->only($allowedColumns->concat($additionalKeys));
+
+                // convert numbers to string
+                $item = $item->map(fn ($value) => strval($value));
 
                 return $item->keyBy(function ($value, $key) use ($columns) {
                     return $columns->get($key, $key);
