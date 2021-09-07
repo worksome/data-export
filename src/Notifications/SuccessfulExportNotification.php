@@ -25,9 +25,9 @@ class SuccessfulExportNotification extends Notification
     public function toMail($notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject(__('Your data export is ready for you!'))
+            ->subject(__('Your data export is ready for you'))
             ->line(__('Hi there'))
-            ->line(sprintf(__('Your %s export is ready to download now.'), $this->export->type))
+            ->line(__('Your :exportType is ready to download now.', ['type' => $this->export->type]))
             ->action(__('Download export'), Storage::url($this->export->path));
     }
 }
