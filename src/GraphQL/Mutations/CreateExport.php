@@ -4,13 +4,15 @@ namespace Worksome\DataExport\GraphQL\Mutations;
 
 use Worksome\DataExport\Enums\ExportResponseStatus;
 use Worksome\DataExport\Events\ExportInitialised;
+use Worksome\DataExport\GraphQL\Contracts\ExportValidator;
 use Worksome\DataExport\Services\CreateExport as CreateExportService;
 use Worksome\DataExport\Services\CreateExportDTO;
 
 class CreateExport
 {
     public function __construct(
-        public CreateExportService $createExportService
+        private CreateExportService $createExportService,
+        private ExportValidator $exportValidator,
     ) {}
 
     /**
@@ -20,6 +22,9 @@ class CreateExport
     public function __invoke($_, array $args)
     {
         $dto = CreateExportDTO::fromArgs($args['input']);
+
+        $this->exportValidator->validate($dto);
+
         $export = $this->createExportService->fromDTO($dto)->run();
 
         event(new ExportInitialised($export));
