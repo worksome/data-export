@@ -25,7 +25,7 @@
     "require-dev": {
         "orchestra/testbench": "6.21.0",
         "pestphp/pest": "1.18.0",
-        "worksome/coding-style": "0.3.8"
+        "worksome/coding-style": "0.3.10"
     },
     "autoload": {
         "psr-4": {
