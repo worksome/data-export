@@ -1,5 +1,5 @@
 input Delivery {
-    type: DeliveryType!
+    type: String!
     value: String
 }
 
@@ -11,6 +11,7 @@ input Args {
 
 input CreateExportInput {
     userId: Int!
+    impersonatorId: Int
     accountId: Int!
     accountType: String!
     type: String!

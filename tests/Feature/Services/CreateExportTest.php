@@ -35,6 +35,6 @@ it('can create an export', function () {
     expect($result->account_type)->toBe($args['accountType']);
     expect($result->type)->toBe($args['type']);
     expect($result->generator_type)->toBe($args['generatorType']);
-    expect($result->deliveries->toArray())->toBe($args['deliveries']);
+    expect($result->deliveries)->toBe($args['deliveries']);
     expect($result->args)->toBe($args['args']);
 });

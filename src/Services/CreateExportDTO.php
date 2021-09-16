@@ -15,6 +15,7 @@ class CreateExportDTO
         private string $generatorType,
         private array $deliveries,
         private array $args,
+        private int|null $impersonatorId = null,
     )
     {}
 
@@ -56,5 +57,10 @@ class CreateExportDTO
     public function getArgs(): array
     {
         return $this->args;
+    }
+
+    public function getImpersonatorId(): ?int
+    {
+        return $this->impersonatorId;
     }
 }
