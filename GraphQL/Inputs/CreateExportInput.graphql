@@ -1,8 +1,3 @@
-input Delivery {
-    type: String!
-    value: String
-}
-
 input Args {
     companies: [Int!]!,
     dateFrom: Date
@@ -16,6 +11,6 @@ input CreateExportInput {
     accountType: String!
     type: String!
     generatorType: String!
-    deliveries: [Delivery!]!
+    deliveries: [String!]!
     args: Args!
 }
