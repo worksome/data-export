@@ -8,8 +8,6 @@ use Nuwave\Lighthouse\Events\BuildSchemaString;
 use Nuwave\Lighthouse\Schema\Source\SchemaStitcher;
 use Nuwave\Lighthouse\Schema\TypeRegistry;
 use Nuwave\Lighthouse\Schema\Types\LaravelEnumType;
-use Worksome\DataExport\Delivery\DeliveryManager;
-use Worksome\DataExport\Enums\DeliveryType;
 use Worksome\DataExport\Enums\ExportResponseStatus;
 use Worksome\DataExport\Enums\GeneratorType;
 use Worksome\DataExport\Generator\GeneratorManager;
@@ -21,7 +19,6 @@ class DataExportServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->singleton(DeliveryManager::class);
         $this->app->singleton(GeneratorManager::class);
         $this->app->singleton(ProcessorRepository::class);
         $this->app->bind(ExportValidator::class, NullExportValidator::class);
@@ -54,7 +51,6 @@ class DataExportServiceProvider extends ServiceProvider
     {
         $types = [
             ExportResponseStatus::class,
-            DeliveryType::class,
             GeneratorType::class,
         ];
 

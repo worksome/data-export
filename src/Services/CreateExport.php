@@ -20,6 +20,7 @@ class CreateExport
     {
         return Export::create([
             'user_id' => $this->dto->getUserId(),
+            'impersonator_id' => $this->dto->getImpersonatorId(),
             'account_id' => $this->dto->getAccountId(),
             'account_type' => $this->dto->getAccountType(),
             'status' => ExportStatus::AWAITING,

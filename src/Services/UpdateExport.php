@@ -3,6 +3,7 @@
 namespace Worksome\DataExport\Services;
 
 use Worksome\DataExport\Enums\ExportStatus;
+use Worksome\DataExport\Events\ExportCompleted;
 use Worksome\DataExport\Models\Export;
 
 class UpdateExport
@@ -27,6 +28,8 @@ class UpdateExport
         $export->mime_type = $generatorFile->getMimeType();
 
         $export->save();
+
+        event(new ExportCompleted($export));
 
         return $export;
     }
