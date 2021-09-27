@@ -5,6 +5,7 @@ namespace Worksome\DataExport\Events;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Worksome\DataExport\Generator\GeneratorFile;
 use Worksome\DataExport\Models\Export;
 
 class ExportCompleted
@@ -14,6 +15,7 @@ class ExportCompleted
     use SerializesModels;
 
     public function __construct(
-        public Export $export
+        public Export $export,
+        public GeneratorFile $generatorFile,
     ) {}
 }

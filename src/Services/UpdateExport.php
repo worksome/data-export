@@ -29,7 +29,7 @@ class UpdateExport
 
         $export->save();
 
-        event(new ExportCompleted($export));
+        event(new ExportCompleted($export, $generatorFile));
 
         return $export;
     }
