@@ -16,7 +16,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $generator_type
  * @property array $deliveries
  * @property array $args
- * @property int $size
+ * @property float $size
+ * @property int $total_rows
  * @property string $mime_type
  */
 class Export extends Model
@@ -33,12 +34,15 @@ class Export extends Model
         'deliveries',
         'args',
         'size',
+        'total_rows',
         'mime_type',
     ];
 
     protected $casts = [
         'args'       => 'array',
         'deliveries' => 'array',
+        'size'       => 'float',
+        'total_rows' => 'integer',
     ];
 
     public function getFormattedSize(): string

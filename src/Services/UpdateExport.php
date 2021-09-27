@@ -25,6 +25,7 @@ class UpdateExport
         $export->status = ExportStatus::COMPLETED;
         $export->path = $generatorFile->getPath();
         $export->size = $generatorFile->getSize();
+        $export->total_rows = $generatorFile->getCount();
         $export->mime_type = $generatorFile->getMimeType();
 
         $export->save();
