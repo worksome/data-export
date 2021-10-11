@@ -13,13 +13,14 @@ class CreateExport
     public function __construct(
         private CreateExportService $createExportService,
         private ExportValidator $exportValidator,
-    ) {}
+    ) {
+    }
 
     /**
-     * @param  null  $_
+     * @param  null  $rootValue
      * @param  array<string, mixed>  $args
      */
-    public function __invoke($_, array $args)
+    public function __invoke($rootValue, array $args)
     {
         $dto = CreateExportDTO::fromArgs($args['input']);
 

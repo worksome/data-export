@@ -10,7 +10,8 @@ class GeneratorFile
         private string $url,
         private int $count,
         private string $mimeType,
-    ) {}
+    ) {
+    }
 
     public function getPath()
     {

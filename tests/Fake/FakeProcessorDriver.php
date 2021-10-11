@@ -23,6 +23,6 @@ class FakeProcessorDriver extends EloquentProcessor
 
         $data = $this->filterQuery($query);
 
-        return new ProcessorData($data);
+        return new ProcessorData($data, $this->type);
     }
 }

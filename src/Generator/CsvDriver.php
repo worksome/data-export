@@ -18,7 +18,8 @@ class CsvDriver implements GeneratorDriver
     {
         $csv = $this->exportToCsv($processorData);
 
-        return $this->saveToStorage(Str::random(40), $csv, $processorData);
+        $filename = sprintf('export-%s-%s', $processorData->getType(), Str::random(40));
+        return $this->saveToStorage($filename, $csv, $processorData);
     }
 
     public function exportToCsv(ProcessorData $processorData)
@@ -49,7 +50,7 @@ class CsvDriver implements GeneratorDriver
         );
     }
 
-    function toCsvWriter(Spreadsheet $spreadsheet): Csv
+    public function toCsvWriter(Spreadsheet $spreadsheet): Csv
     {
         $writer = new Csv($spreadsheet);
         $writer->setEnclosureRequired(false);
@@ -59,7 +60,7 @@ class CsvDriver implements GeneratorDriver
         return $writer;
     }
 
-    function toSpreadsheet(array $entries): Spreadsheet
+    public function toSpreadsheet(array $entries): Spreadsheet
     {
         $spreadsheet = new Spreadsheet();
 
@@ -77,7 +78,7 @@ class CsvDriver implements GeneratorDriver
         return $spreadsheet;
     }
 
-    function toStream(IWriter $writer): Stream
+    public function toStream(IWriter $writer): Stream
     {
         // Write the spreadsheet to a resource.
         $resource = fopen('php://temp', 'w+');

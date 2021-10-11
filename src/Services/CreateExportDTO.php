@@ -16,8 +16,8 @@ class CreateExportDTO
         private array $deliveries,
         private array $args,
         private int|null $impersonatorId = null,
-    )
-    {}
+    ) {
+    }
 
     public static function fromArgs(array $args): self
     {

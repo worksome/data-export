@@ -34,13 +34,13 @@ class DataExportServiceProvider extends ServiceProvider
     private function registerMigrations(): void
     {
         if ($this->app->runningInConsole()) {
-            $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+            $this->loadMigrationsFrom(__DIR__ . '/../database/migrations');
         }
     }
 
     private function buildQraphQLSchema(Dispatcher $dispatcher): void
     {
-        $dispatcher->listen(BuildSchemaString::class, function(): string {
+        $dispatcher->listen(BuildSchemaString::class, function (): string {
             $stitcher = new SchemaStitcher(__DIR__ . '/../GraphQL/schema.graphql');
 
             return $stitcher->getSchemaString();
