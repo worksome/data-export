@@ -4,6 +4,7 @@ namespace Worksome\DataExport\Generator;
 
 use Worksome\DataExport\Generator\Contracts\GeneratorDriver;
 use GuzzleHttp\Psr7\Stream;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -18,7 +19,12 @@ class CsvDriver implements GeneratorDriver
     {
         $csv = $this->exportToCsv($processorData);
 
-        $filename = sprintf('export-%s-%s', $processorData->getType(), Str::random(40));
+        $filename = sprintf(
+            'export-%s-%s-%s',
+            $processorData->getType(),
+            Carbon::now()->format('Y-m-d'),
+            Str::random(40)
+        );
         return $this->saveToStorage($filename, $csv, $processorData);
     }
 
