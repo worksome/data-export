@@ -15,7 +15,8 @@ class ProcessorRepository
 
     public function __construct(
         private Container $container
-    ) {}
+    ) {
+    }
 
     public function get(string $processor): ProcessorDriver
     {

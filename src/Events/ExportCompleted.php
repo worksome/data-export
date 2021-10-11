@@ -15,5 +15,6 @@ class ExportCompleted
 
     public function __construct(
         public Export $export
-    ) {}
+    ) {
+    }
 }

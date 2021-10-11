@@ -12,8 +12,8 @@ class UpdateExportDTO
     public function __construct(
         private Export $export,
         private GeneratorFile $generatorFile,
-    )
-    {}
+    ) {
+    }
 
     public static function fromGeneratorFile(GeneratorFile $generatorFile, Export $export): self
     {

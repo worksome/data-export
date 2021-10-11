@@ -13,14 +13,14 @@ it('can export data to csv format', function () {
         ['name' => 'Jane Doe'],
     ];
 
-    $processorData = new ProcessorData($data);
+    $processorData = new ProcessorData($data, 'people');
 
     $csvDriver = new CsvDriver();
 
     expect($csvDriver->exportToCsv($processorData))->toBe("name\r\nJohn Doe\r\nJane Doe\r\n");
 });
 
-it('can save csv on storage', function (){
+it('can save csv on storage', function () {
     Storage::fake();
 
     $data = [
@@ -28,7 +28,7 @@ it('can save csv on storage', function (){
         ['name' => 'Jane Doe'],
     ];
 
-    $processorData = new ProcessorData($data);
+    $processorData = new ProcessorData($data, 'people');
 
     $csvDriver = new CsvDriver();
 
@@ -48,7 +48,7 @@ it('can fully generate the csv file', function () {
         ['name' => 'Jane Doe'],
     ];
 
-    $processorData = new ProcessorData($data);
+    $processorData = new ProcessorData($data, 'people');
 
     $csvDriver = new CsvDriver();
 
