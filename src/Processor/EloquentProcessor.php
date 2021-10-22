@@ -33,6 +33,14 @@ abstract class EloquentProcessor implements ProcessorDriver
         return [];
     }
 
+    /**
+     * Additional data connected to compliances.
+     */
+    public function compliances($item): array
+    {
+        return [];
+    }
+
     public function formatDate(string $date): string
     {
         return Carbon::parse($date)->format('Y-m-d');
@@ -57,9 +65,10 @@ abstract class EloquentProcessor implements ProcessorDriver
         $items = collect();
 
         $query->chunk(1000, function ($data) use ($columns, $allowedColumns, $items) {
-            // Combine columns plus additional fields
+            // Combine columns plus additional fields and compliances
             $filtered = $data->map(function ($item) use ($columns, $allowedColumns) {
                 $additional = $this->additional($item);
+                $compliances = $this->compliances($item);
                 $additionalKeys = array_keys($additional);
 
                 // Merge fieldsets
@@ -77,14 +86,75 @@ abstract class EloquentProcessor implements ProcessorDriver
                     return strval($value);
                 });
 
-                return $item->keyBy(function ($value, $key) use ($columns) {
+                // add compliances into the item as array so we can later
+                // normalize the columns
+                $item->put('compliances', $compliances);
+
+                // update keys based on desired key names provided in the processor
+                $item = $item->keyBy(function ($value, $key) use ($columns) {
                     return $columns->get($key, $key);
                 })->all();
+
+                // we return an array
+                return $item;
             });
 
             $items->push($filtered);
         });
 
-        return $items->flatten(1)->toArray();
+        $formattedItems = $this->normalizeComplianceItems($items->flatten(1)->toArray());
+
+        return $formattedItems;
+    }
+
+    protected function getAllComplianceKeys(array $items): array
+    {
+        $complianceKeys = [];
+
+        foreach ($items as $item) {
+            $compliances = $item['compliances'];
+
+            if (count($compliances)) {
+                foreach ($item['compliances'] as $compliance) {
+                    $key = key($compliance);
+                    if (!in_array($key, $complianceKeys)) {
+                        $complianceKeys[] = $key;
+                    }
+                }
+            }
+        }
+
+        return $complianceKeys;
+    }
+
+    protected function normalizeComplianceItems(array $items): array
+    {
+        // get compliance keys
+        $complianceKeys = $this->getAllComplianceKeys($items);
+
+        // go through each item
+        foreach ($items as $key => $item) {
+            $itemCompliances = $items[$key]['compliances'];
+
+            // for each item we wanna add each compliance key
+            // and also populate value if we got one
+            foreach ($complianceKeys as $complianceArrKey => $complianceKey) {
+                $value = '';
+
+                // check if we have value for this item and populate it
+                if (isset($itemCompliances[$complianceArrKey][$complianceKey])) {
+                    $value = $itemCompliances[$complianceArrKey][$complianceKey];
+                }
+
+                // add the compliance key and it's value
+                $items[$key][$complianceKey] = $value;
+            }
+
+            // unset our "temp" compliances array as now we have them
+            // in the correct format
+            unset($items[$key]['compliances']);
+        }
+
+        return $items;
     }
 }
