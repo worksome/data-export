@@ -5,7 +5,7 @@ namespace Worksome\DataExport\Tests\Feature\Processor;
 use Worksome\DataExport\Models\Export;
 use Worksome\DataExport\Tests\Factories\UserFactory;
 use Worksome\DataExport\Tests\Fake\FakeProcessorDriver;
-use Worksome\DataExport\Tests\Fake\FakeProcessorWithComplianceDriver;
+use Worksome\DataExport\Tests\Fake\FakeProcessorWithOptionalDriver;
 
 it('can process a query that returns no results', function () {
     $export = new Export();
@@ -64,7 +64,7 @@ it('should correctly process compliance data', function () {
     ]);
 
     $export = new Export();
-    $processor = new FakeProcessorWithComplianceDriver();
+    $processor = new FakeProcessorWithOptionalDriver();
     $processedData = $processor->process($export);
     $data = $processedData->getData();
 

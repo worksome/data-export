@@ -34,9 +34,11 @@ abstract class EloquentProcessor implements ProcessorDriver
     }
 
     /**
-     * Additional data connected to compliances.
+     * Additional optional data. Useful to normalize
+     * data for multiple items where each item might
+     * have slightly different set. E.g. optional
      */
-    public function compliances($item): array
+    public function optional($item): array
     {
         return [];
     }
@@ -65,10 +67,10 @@ abstract class EloquentProcessor implements ProcessorDriver
         $items = collect();
 
         $query->chunk(1000, function ($data) use ($columns, $allowedColumns, $items) {
-            // Combine columns plus additional fields and compliances
+            // Combine columns plus additional and optional fields
             $filtered = $data->map(function ($item) use ($columns, $allowedColumns) {
                 $additional = $this->additional($item);
-                $compliances = $this->compliances($item);
+                $optional = $this->optional($item);
                 $additionalKeys = array_keys($additional);
 
                 // Merge fieldsets
@@ -86,9 +88,9 @@ abstract class EloquentProcessor implements ProcessorDriver
                     return strval($value);
                 });
 
-                // add compliances into the item as array so we can later
+                // add optional into the item as array so we can later
                 // normalize the columns
-                $item->put('compliances', $compliances);
+                $item->put('optional', $optional);
 
                 // update keys based on desired key names provided in the processor
                 $item = $item->keyBy(function ($value, $key) use ($columns) {
@@ -102,57 +104,57 @@ abstract class EloquentProcessor implements ProcessorDriver
             $items->push($filtered);
         });
 
-        $formattedItems = $this->normalizeComplianceItems($items->flatten(1)->toArray());
+        $formattedItems = $this->normalizeOptionalItems($items->flatten(1)->toArray());
 
         return $formattedItems;
     }
 
-    protected function getAllComplianceKeys(array $items): array
+    protected function getAllOptionalKeys(array $items): array
     {
-        $complianceKeys = [];
+        $optionalKeys = [];
 
         foreach ($items as $item) {
-            $compliances = $item['compliances'];
+            $optional = $item['optional'];
 
-            if (count($compliances)) {
-                foreach ($item['compliances'] as $compliance) {
-                    $key = key($compliance);
-                    if (!in_array($key, $complianceKeys)) {
-                        $complianceKeys[] = $key;
+            if (count($optional)) {
+                foreach ($item['optional'] as $optional) {
+                    $key = key($optional);
+                    if (!in_array($key, $optionalKeys)) {
+                        $optionalKeys[] = $key;
                     }
                 }
             }
         }
 
-        return $complianceKeys;
+        return $optionalKeys;
     }
 
-    protected function normalizeComplianceItems(array $items): array
+    protected function normalizeOptionalItems(array $items): array
     {
-        // get compliance keys
-        $complianceKeys = $this->getAllComplianceKeys($items);
+        // get optional keys
+        $optionalKeys = $this->getAllOptionalKeys($items);
 
         // go through each item
         foreach ($items as $key => $item) {
-            $itemCompliances = $items[$key]['compliances'];
+            $itemOptionals = $items[$key]['optional'];
 
-            // for each item we wanna add each compliance key
+            // for each item we wanna add each optional key
             // and also populate value if we got one
-            foreach ($complianceKeys as $complianceArrKey => $complianceKey) {
+            foreach ($optionalKeys as $optionalArrKey => $optionalKey) {
                 $value = '';
 
                 // check if we have value for this item and populate it
-                if (isset($itemCompliances[$complianceArrKey][$complianceKey])) {
-                    $value = $itemCompliances[$complianceArrKey][$complianceKey];
+                if (isset($itemOptionals[$optionalArrKey][$optionalKey])) {
+                    $value = $itemOptionals[$optionalArrKey][$optionalKey];
                 }
 
-                // add the compliance key and it's value
-                $items[$key][$complianceKey] = $value;
+                // add the optional key and it's value
+                $items[$key][$optionalKey] = $value;
             }
 
-            // unset our "temp" compliances array as now we have them
+            // unset our "temp" optional array as now we have them
             // in the correct format
-            unset($items[$key]['compliances']);
+            unset($items[$key]['optional']);
         }
 
         return $items;

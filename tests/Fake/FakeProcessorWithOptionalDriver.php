@@ -7,7 +7,7 @@ use Worksome\DataExport\Processor\EloquentProcessor;
 use Worksome\DataExport\Processor\ProcessorData;
 use Worksome\DataExport\Tests\Fake\Models\User;
 
-class FakeProcessorWithComplianceDriver extends EloquentProcessor
+class FakeProcessorWithOptionalDriver extends EloquentProcessor
 {
     public string $type = 'fake';
 
@@ -26,7 +26,7 @@ class FakeProcessorWithComplianceDriver extends EloquentProcessor
         return new ProcessorData($data, $this->type);
     }
 
-    public function compliances($item): array
+    public function optional($item): array
     {
         return [
             ['Compliance UK' => 'applies'],
