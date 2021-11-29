@@ -3,7 +3,8 @@
       "config:base",
       ":preserveSemverRanges"
     ],
+    "rangeStrategy": "auto",
     "semanticCommits": "enabled",
     "branchConcurrentLimit": 10,
     "reviewersFromCodeOwners": true
-  }
+}
