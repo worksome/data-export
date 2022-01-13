@@ -23,7 +23,7 @@
         "symfony/dependency-injection": "^6.0"
     },
     "require-dev": {
-        "orchestra/testbench": "6.23.2",
+        "orchestra/testbench": "6.24.0",
         "pestphp/pest": "1.21.1",
         "worksome/coding-style": "0.8.3"
     },
