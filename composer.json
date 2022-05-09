@@ -10,20 +10,20 @@
         }
     ],
     "require": {
-        "php": "^8.0|^8.1",
-        "bensampo/laravel-enum": "^4.0 || ^5.0",
+        "php": "^8.0",
+        "bensampo/laravel-enum": "^4.0|^5.0",
         "guzzlehttp/guzzle": "^7.4",
-        "illuminate/container": "^8.58 || ^9.0",
-        "illuminate/contracts": "^8.58 || ^9.0",
-        "illuminate/database": "^8.58 || ^9.0",
-        "illuminate/support": "^8.58 || ^9.0",
+        "illuminate/container": "^8.58|^9.0",
+        "illuminate/contracts": "^8.58|^9.0",
+        "illuminate/database": "^8.58|^9.0",
+        "illuminate/support": "^8.58|^9.0",
         "nesbot/carbon": "^2.58",
         "nuwave/lighthouse": "^5.48",
         "phpoffice/phpspreadsheet": "^1.23",
         "symfony/dependency-injection": "^6.0"
     },
     "require-dev": {
-        "orchestra/testbench": "6.24.1 || ^7.4",
+        "orchestra/testbench": "6.24.1|^7.4",
         "pestphp/pest": "1.21.2",
         "worksome/coding-style": "0.17.0"
     },
