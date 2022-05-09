@@ -11,19 +11,19 @@
     ],
     "require": {
         "php": "^8.0",
-        "bensampo/laravel-enum": "^4.0",
-        "guzzlehttp/guzzle": "^7.3",
-        "illuminate/container": "^8.58",
-        "illuminate/contracts": "^8.58",
-        "illuminate/database": "^8.58",
-        "illuminate/support": "^8.58",
-        "nesbot/carbon": "^2.51",
-        "nuwave/lighthouse": "^5.19",
-        "phpoffice/phpspreadsheet": "^1.18",
+        "bensampo/laravel-enum": "^4.0|^5.0",
+        "guzzlehttp/guzzle": "^7.4",
+        "illuminate/container": "^8.58|^9.0",
+        "illuminate/contracts": "^8.58|^9.0",
+        "illuminate/database": "^8.58|^9.0",
+        "illuminate/support": "^8.58|^9.0",
+        "nesbot/carbon": "^2.58",
+        "nuwave/lighthouse": "^5.48",
+        "phpoffice/phpspreadsheet": "^1.23",
         "symfony/dependency-injection": "^6.0"
     },
     "require-dev": {
-        "orchestra/testbench": "6.24.1",
+        "orchestra/testbench": "6.24.1|^7.4",
         "pestphp/pest": "1.21.2",
         "worksome/coding-style": "0.17.0"
     },
@@ -40,7 +40,12 @@
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "worksome/coding-style": true
+        }
     },
     "scripts": {
         "phpcs": "vendor/bin/phpcs",
