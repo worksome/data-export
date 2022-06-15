@@ -1,4 +1,4 @@
-input Args {
+input ArgsInput {
     companies: [Int!]!,
     dateFrom: Date
     dateTo: Date
@@ -12,5 +12,5 @@ input CreateExportInput {
     type: String!
     generatorType: String!
     deliveries: [String!]!
-    args: Args!
+    args: ArgsInput!
 }
