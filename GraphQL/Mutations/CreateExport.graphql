@@ -1,5 +1,14 @@
+"""
+A response with data from the export creation.
+"""
 type CreateExportResponse {
+    """
+    The status of the export.
+    """
     status: ExportResponseStatus!
+    """
+    A message explaining the result of the export.
+    """
     message: String!
 }
 
