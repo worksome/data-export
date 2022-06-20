@@ -2,6 +2,9 @@
 #import ./Queries/*.graphql
 #import ./Inputs/*.graphql
 
+"""
+A scalar type representing a date.
+"""
 scalar Date @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date")
 
 # Init root-types
