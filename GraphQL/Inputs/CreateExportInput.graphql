@@ -37,11 +37,11 @@ input CreateExportInput {
     """
     accountType: String!
     """
-    The type of export to create.
+    The type of processor to use for the export.
     """
     type: String!
     """
-    The type of export to create.
+    The type of generator (format) that is creating the export.
     """
     generatorType: String!
     """
