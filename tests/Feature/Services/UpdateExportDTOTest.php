@@ -2,9 +2,9 @@
 
 namespace Worksome\DataExport\Tests\Feature\Services;
 
-use Worksome\DataExport\Services\UpdateExportDTO;
 use Worksome\DataExport\Generator\GeneratorFile;
 use Worksome\DataExport\Models\Export;
+use Worksome\DataExport\Services\UpdateExportDTO;
 
 it('can initialize the dto from the constructor', function () {
     $generatorFile = new GeneratorFile(

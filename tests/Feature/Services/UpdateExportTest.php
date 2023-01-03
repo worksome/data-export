@@ -3,9 +3,9 @@
 namespace Worksome\DataExport\Tests\Feature\Services;
 
 use Worksome\DataExport\Enums\ExportStatus;
+use Worksome\DataExport\Generator\GeneratorFile;
 use Worksome\DataExport\Services\UpdateExport;
 use Worksome\DataExport\Services\UpdateExportDTO;
-use Worksome\DataExport\Generator\GeneratorFile;
 use Worksome\DataExport\Tests\Factories\ExportFactory;
 
 it('can update an export', function () {

@@ -119,7 +119,7 @@ abstract class EloquentProcessor implements ProcessorDriver
             if (count($optional)) {
                 foreach ($item['optional'] as $optional) {
                     $key = key($optional);
-                    if (!in_array($key, $optionalKeys)) {
+                    if (! in_array($key, $optionalKeys)) {
                         $optionalKeys[] = $key;
                     }
                 }

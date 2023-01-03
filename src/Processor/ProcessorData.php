@@ -6,7 +6,7 @@ class ProcessorData
 {
     public function __construct(
         private array $data,
-        private string $type
+        private string $type,
     ) {
     }
 
