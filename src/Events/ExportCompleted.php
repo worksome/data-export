@@ -14,7 +14,7 @@ class ExportCompleted
     use SerializesModels;
 
     public function __construct(
-        public Export $export
+        public Export $export,
     ) {
     }
 }

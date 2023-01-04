@@ -17,8 +17,8 @@ class CreateExport
     }
 
     /**
-     * @param  null  $rootValue
-     * @param  array<string, mixed>  $args
+     * @param null                 $rootValue
+     * @param array<string, mixed> $args
      */
     public function __invoke($rootValue, array $args)
     {

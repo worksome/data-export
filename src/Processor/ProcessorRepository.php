@@ -14,7 +14,7 @@ class ProcessorRepository
     private array $processors = [];
 
     public function __construct(
-        private Container $container
+        private Container $container,
     ) {
     }
 
@@ -30,7 +30,7 @@ class ProcessorRepository
     }
 
     /**
-     * @param string $processorName
+     * @param string                        $processorName
      * @param class-string<ProcessorDriver> $processorClass
      */
     public function register(string $processorName, string $processorClass): void
