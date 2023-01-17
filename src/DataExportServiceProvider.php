@@ -24,11 +24,15 @@ class DataExportServiceProvider extends ServiceProvider
         $this->app->bind(ExportValidator::class, NullExportValidator::class);
     }
 
-    public function boot(Dispatcher $dispatcher, TypeRegistry $typeRegistry): void
+    public function boot(): void
     {
         $this->registerMigrations();
-        $this->buildQraphQLSchema($dispatcher);
-        $this->registerGraphQLTypes($typeRegistry);
+        $this->callAfterResolving(Dispatcher::class, function (Dispatcher $dispatcher) {
+            $this->buildQraphQLSchema($dispatcher);
+        });
+        $this->callAfterResolving(TypeRegistry::class, function (TypeRegistry $typeRegistry) {
+            $this->registerGraphQLTypes($typeRegistry);
+        });
     }
 
     private function registerMigrations(): void
