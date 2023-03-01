@@ -5,11 +5,21 @@ on:
 
 jobs:
   setup:
-    runs-on: ubuntu-latest
-    name: Pest on PHP ${{ matrix.php }}
+    runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: true
       matrix:
-        php: ['8.2']
+        os: [ ubuntu-latest ]
+        php: [ 8.2 ]
+        laravel: [ 9.*, 10.* ]
+        stability: [ prefer-lowest, prefer-stable ]
+        include:
+          - laravel: 9.*
+            testbench: 7.*
+          - laravel: 10.*
+            testbench: 8.*
+
+    name: P${{ matrix.php }} - L${{ matrix.laravel }} - ${{ matrix.stability }} - ${{ matrix.os }}
 
     steps:
       - name: Checkout code
@@ -23,7 +33,9 @@ jobs:
           php-version: ${{ matrix.php }}
 
       - name: Install Composer dependencies
-        uses: ramsey/composer-install@v1
+        run: |
+          composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" --no-interaction --no-update
+          composer update --${{ matrix.stability }} --prefer-dist --no-interaction
 
       - name: Test php code
         run: composer test:unit

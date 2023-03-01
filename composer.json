@@ -13,17 +13,17 @@
         "php": "^8.2",
         "bensampo/laravel-enum": "^6.2",
         "guzzlehttp/guzzle": "^7.4",
-        "illuminate/container": "^9.46",
-        "illuminate/contracts": "^9.46",
-        "illuminate/database": "^9.46",
-        "illuminate/support": "^9.46",
+        "illuminate/container": "^9.46|^10.0",
+        "illuminate/contracts": "^9.46|^10.0",
+        "illuminate/database": "^9.46|^10.0",
+        "illuminate/support": "^9.46|^10.0",
         "nesbot/carbon": "^2.64.1",
         "nuwave/lighthouse": "^5.69.1|dev-master",
         "phpoffice/phpspreadsheet": "^1.26",
         "symfony/dependency-injection": "^6.2.3"
     },
     "require-dev": {
-        "orchestra/testbench": "^7.4",
+        "orchestra/testbench": "^7.4|^8.0",
         "pestphp/pest": "^1.22.3",
         "worksome/coding-style": "^2.3.2"
     },
@@ -56,5 +56,7 @@
             "@test:style",
             "@test:unit"
         ]
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
