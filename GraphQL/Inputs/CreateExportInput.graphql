@@ -14,6 +14,10 @@ input ArgsInput {
     The end date of the export.
     """
     dateTo: Date
+    """
+    Any additional information.
+    """
+    meta: String
 }
 
 """
