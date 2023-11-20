@@ -6,6 +6,7 @@ type CreateExportResponse {
     The status of the export.
     """
     status: ExportResponseStatus!
+
     """
     A message explaining the result of the export.
     """
@@ -14,8 +15,9 @@ type CreateExportResponse {
 
 extend type Mutation {
     """
-    Create export for given input
-    The export url and count of rows will be returned (minus headings)
+    Create an export.
+
+    The export URL and the number of rows will be returned (excluding headings).
     """
     createExport(
         """

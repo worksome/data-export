@@ -1,57 +1,67 @@
 """
-The provided input arguments.
+An input for additional arguments for the export.
 """
 input ArgsInput {
     """
-    An array of company ids included in the export.
+    A list of company IDs to include in the export.
     """
-    companies: [Int!]!,
+    companies: [Int!]!
+
     """
-    The start date of the export.
+    The date for the start of the export.
     """
     dateFrom: Date
+
     """
-    The end date of the export.
+    The date for the end of the export.
     """
     dateTo: Date
+
     """
-    Any additional information.
+    Additional information and metadata.
     """
     meta: String
 }
 
 """
-The input for creating an export.
+An input for creating an export.
 """
 input CreateExportInput {
     """
-    The user id to create an export for.
+    The ID of the user to create an export for.
     """
     userId: Int!
+
     """
-    The impersonator that is creating the export.
+    The ID of the impersonator that is creating the export.
     """
     impersonatorId: Int
+
     """
-    The account to create an export for.
+    The ID of the account to create an export for.
     """
     accountId: Int!
+
     """
-    The account type to create an export for.
+    The type of account to create an export for.
     """
     accountType: String!
+
     """
     The type of processor to use for the export.
     """
     type: String!
+
     """
     The type of generator (format) that is creating the export.
     """
     generatorType: String!
+
     """
     The methods and locations that the export should be delivered to.
     """
     deliveries: [String!]!
+
     """
     Additional arguments to record for the export.
     """
