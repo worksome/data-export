@@ -136,7 +136,7 @@ abstract class EloquentProcessor implements ProcessorDriver
 
         // go through each item
         foreach ($items as $key => $item) {
-            $itemOptionals = $items[$key]['optional'];
+            $itemOptionals = call_user_func_array('array_merge', $items[$key]['optional']);
 
             // for each item we wanna add each optional key
             // and also populate value if we got one
@@ -144,8 +144,8 @@ abstract class EloquentProcessor implements ProcessorDriver
                 $value = '';
 
                 // check if we have value for this item and populate it
-                if (isset($itemOptionals[$optionalArrKey][$optionalKey])) {
-                    $value = $itemOptionals[$optionalArrKey][$optionalKey];
+                if (isset($itemOptionals[$optionalKey])) {
+                    $value = $itemOptionals[$optionalKey];
                 }
 
                 // add the optional key and it's value
