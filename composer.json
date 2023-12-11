@@ -20,7 +20,7 @@
         "nesbot/carbon": "^2.64.1",
         "nuwave/lighthouse": "^5.69.1|^6.0",
         "phpoffice/phpspreadsheet": "^1.26",
-        "symfony/dependency-injection": "^6.2.3"
+        "symfony/dependency-injection": "^7.0.0"
     },
     "require-dev": {
         "orchestra/testbench": "^8.0",
