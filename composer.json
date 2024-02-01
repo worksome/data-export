@@ -17,7 +17,7 @@
         "illuminate/contracts": "^10.0",
         "illuminate/database": "^10.0",
         "illuminate/support": "^10.0",
-        "nesbot/carbon": "^2.64.1",
+        "nesbot/carbon": "^3.0.0",
         "nuwave/lighthouse": "^5.69.1|^6.0",
         "phpoffice/phpspreadsheet": "^1.26",
         "symfony/dependency-injection": "^6.2.3"
