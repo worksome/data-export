@@ -11,11 +11,11 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        php: ['8.2']
+        php: [ '8.2' ]
 
         actions:
-          -   name: ECS
-              run: 'composer test:style'
+          - name: ECS
+            run: 'composer test:style'
 
     steps:
       - name: Checkout code
@@ -27,6 +27,6 @@ jobs:
           php-version: ${{ matrix.php }}
 
       - name: Install Composer dependencies
-        uses: ramsey/composer-install@v1
+        uses: ramsey/composer-install@v2
 
       - run: ${{ matrix.actions.run }}
