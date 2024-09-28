@@ -59,7 +59,7 @@ class CreateExportDTO
         return $this->args;
     }
 
-    public function getImpersonatorId(): ?int
+    public function getImpersonatorId(): int|null
     {
         return $this->impersonatorId;
     }
