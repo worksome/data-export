@@ -22,7 +22,7 @@ class ProcessorRepository
     {
         if (! isset($this->processors[$processor])) {
             throw new InvalidProcessorException(
-                sprintf("The processor [%s] is not registered!", $processor)
+                sprintf('The processor [%s] is not registered!', $processor)
             );
         }
 

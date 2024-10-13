@@ -6,7 +6,7 @@ use Worksome\DataExport\Processor\ProcessorData;
 
 it('can retrieve the data', function () {
     $processorData = new ProcessorData([
-        'foo' => 'Bar'
+        'foo' => 'Bar',
     ], 'randomstuff');
 
     expect($processorData->getData())->toBe([

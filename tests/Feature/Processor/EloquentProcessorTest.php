@@ -74,18 +74,18 @@ it('should correctly process compliance data', function () {
     }
 
     expect($data[0])->toBe([
-        "User ID" => "1",
-        "name" => "User One",
-        "Is Admin" => "1",
-        "Compliance UK" => "applies",
-        "Compliance US" => "none"
+        'User ID' => '1',
+        'name' => 'User One',
+        'Is Admin' => '1',
+        'Compliance UK' => 'applies',
+        'Compliance US' => 'none',
     ]);
 
     expect($data[1])->toBe([
-        "User ID" => "2",
-        "name" => "User Two",
-        "Is Admin" => "0",
-        "Compliance UK" => "applies",
-        "Compliance US" => "none"
+        'User ID' => '2',
+        'name' => 'User Two',
+        'Is Admin' => '0',
+        'Compliance UK' => 'applies',
+        'Compliance US' => 'none',
     ]);
 });

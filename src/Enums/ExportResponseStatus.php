@@ -11,5 +11,6 @@ use BenSampo\Enum\Enum;
 final class ExportResponseStatus extends Enum
 {
     public const SUCCESS = 'success';
+
     public const ERROR = 'error';
 }
