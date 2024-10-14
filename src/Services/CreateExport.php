@@ -38,7 +38,7 @@ class CreateExport
                     'dateTo' => $dateTo,
                     'dateFrom' => $dateFrom,
                 ]
-            )
+            ),
         ]);
     }
 }

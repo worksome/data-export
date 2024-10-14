@@ -25,6 +25,7 @@ class CsvDriver implements GeneratorDriver
             Carbon::now()->format('Y-m-d'),
             Str::random(40)
         );
+
         return $this->saveToStorage($filename, $csv, $processorData);
     }
 

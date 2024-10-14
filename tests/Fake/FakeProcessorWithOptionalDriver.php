@@ -30,7 +30,7 @@ class FakeProcessorWithOptionalDriver extends EloquentProcessor
     {
         return [
             ['Compliance UK' => 'applies'],
-            ['Compliance US' => 'none']
+            ['Compliance US' => 'none'],
         ];
     }
 }
