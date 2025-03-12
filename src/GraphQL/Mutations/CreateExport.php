@@ -31,7 +31,7 @@ class CreateExport
         event(new ExportInitialised($export));
 
         return [
-            'status' => ExportResponseStatus::SUCCESS,
+            'status' => ExportResponseStatus::Success,
             'message' => __('Export initialised. You\'ll receive an email when the export is completed.'),
         ];
     }

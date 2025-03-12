@@ -26,7 +26,7 @@ it('can update an export', function () {
 
     $result = $service->run();
 
-    expect($result->status)->toBe(ExportStatus::COMPLETED);
+    expect($result->status)->toBe(ExportStatus::Completed);
     expect($result->path)->not->toBeNull();
     expect($result->size)->not->toBeNull();
     expect($result->mime_type)->not->toBeNull();

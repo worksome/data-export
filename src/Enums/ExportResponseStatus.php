@@ -2,15 +2,17 @@
 
 namespace Worksome\DataExport\Enums;
 
-use BenSampo\Enum\Enum;
+use GraphQL\Type\Definition\Description;
+use Worksome\GraphQLHelpers\Definition\Concerns\GraphQLConvertable;
 
-/**
- * @method static static SUCCESS()
- * @method static static ERROR()
- */
-final class ExportResponseStatus extends Enum
+#[Description('The status of the export.')]
+enum ExportResponseStatus: string
 {
-    public const SUCCESS = 'success';
+    use GraphQLConvertable;
 
-    public const ERROR = 'error';
+    #[Description('The export was successful.')]
+    case Success = 'success';
+
+    #[Description('The export experienced one or more errors.')]
+    case Error = 'error';
 }

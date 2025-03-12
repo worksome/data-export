@@ -2,11 +2,8 @@
 
 namespace Worksome\DataExport\Enums;
 
-use BenSampo\Enum\Enum;
-
-final class ExportStatus extends Enum
+enum ExportStatus: string
 {
-    public const AWAITING = 'awaiting';
-
-    public const COMPLETED = 'completed';
+    case Awaiting = 'awaiting';
+    case Completed = 'completed';
 }

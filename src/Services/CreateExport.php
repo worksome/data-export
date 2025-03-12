@@ -28,7 +28,7 @@ class CreateExport
             'impersonator_id' => $this->dto->getImpersonatorId(),
             'account_id' => $this->dto->getAccountId(),
             'account_type' => $this->dto->getAccountType(),
-            'status' => ExportStatus::AWAITING,
+            'status' => ExportStatus::Awaiting,
             'type' => $this->dto->getType(),
             'generator_type' => $this->dto->getGeneratorType(),
             'deliveries' => $this->dto->getDeliveries(),
