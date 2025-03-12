@@ -22,7 +22,7 @@ class UpdateExport
         $generatorFile = $this->dto->getGeneratorFile();
 
         $export = $this->dto->getExport();
-        $export->status = ExportStatus::COMPLETED;
+        $export->status = ExportStatus::Completed;
         $export->path = $generatorFile->getPath();
         $export->size = $generatorFile->getSize();
         $export->total_rows = $generatorFile->getCount();

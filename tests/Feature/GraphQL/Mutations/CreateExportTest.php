@@ -37,7 +37,7 @@ it('can create an export', function () {
 
     Event::assertDispatched(ExportInitialised::class);
 
-    expect($response['status'])->toBe(ExportResponseStatus::SUCCESS);
+    expect($response['status'])->toBe(ExportResponseStatus::Success);
 
     $export = Export::latest('created_at')->first()->refresh();
     expect($export->args['dateFrom'])->toBe('2021-01-01');

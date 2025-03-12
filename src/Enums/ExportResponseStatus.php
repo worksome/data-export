@@ -2,15 +2,8 @@
 
 namespace Worksome\DataExport\Enums;
 
-use BenSampo\Enum\Enum;
-
-/**
- * @method static static SUCCESS()
- * @method static static ERROR()
- */
-final class ExportResponseStatus extends Enum
+enum ExportResponseStatus: string
 {
-    public const SUCCESS = 'success';
-
-    public const ERROR = 'error';
+    case Success = 'success';
+    case Error = 'error';
 }

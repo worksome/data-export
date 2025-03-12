@@ -2,11 +2,8 @@
 
 namespace Worksome\DataExport\Services;
 
-use JetBrains\PhpStorm\Pure;
-
 class CreateExportDTO
 {
-    #[Pure]
     public function __construct(
         private int $userId,
         private int $accountId,
