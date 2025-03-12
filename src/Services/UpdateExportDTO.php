@@ -2,13 +2,11 @@
 
 namespace Worksome\DataExport\Services;
 
-use JetBrains\PhpStorm\Pure;
 use Worksome\DataExport\Generator\GeneratorFile;
 use Worksome\DataExport\Models\Export;
 
 class UpdateExportDTO
 {
-    #[Pure]
     public function __construct(
         private Export $export,
         private GeneratorFile $generatorFile,
