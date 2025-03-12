@@ -2,12 +2,7 @@
 
 namespace Worksome\DataExport\Enums;
 
-use BenSampo\Enum\Enum;
-
-/**
- * @method static static CSV()
- */
-final class GeneratorType extends Enum
+enum GeneratorType: string
 {
     public const CSV = 'CSV';
 }

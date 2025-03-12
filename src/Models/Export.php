@@ -3,22 +3,23 @@
 namespace Worksome\DataExport\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Worksome\DataExport\Enums\ExportStatus;
 
 /**
- * @property int    $id
- * @property int    $user_id
- * @property int    $impersonator_id
- * @property int    $account_id
- * @property string $account_type
- * @property string $path
- * @property string $status
- * @property string $type
- * @property string $generator_type
- * @property array  $deliveries
- * @property array  $args
- * @property float  $size
- * @property int    $total_rows
- * @property string $mime_type
+ * @property int          $id
+ * @property int          $user_id
+ * @property int          $impersonator_id
+ * @property int          $account_id
+ * @property string       $account_type
+ * @property string       $path
+ * @property ExportStatus $status
+ * @property string       $type
+ * @property string       $generator_type
+ * @property array        $deliveries
+ * @property array        $args
+ * @property float        $size
+ * @property int          $total_rows
+ * @property string       $mime_type
  */
 class Export extends Model
 {
@@ -38,12 +39,17 @@ class Export extends Model
         'mime_type',
     ];
 
-    protected $casts = [
-        'args'       => 'array',
-        'deliveries' => 'array',
-        'size'       => 'float',
-        'total_rows' => 'integer',
-    ];
+    /** {@inheritdoc} */
+    protected function casts(): array
+    {
+        return [
+            'args'       => 'array',
+            'deliveries' => 'array',
+            'size'       => 'float',
+            'total_rows' => 'integer',
+            'status'     => ExportStatus::class,
+        ];
+    }
 
     public function getFormattedSize(): string
     {
