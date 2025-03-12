@@ -1,0 +1,169 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: src/DataExportServiceProvider.php
+
+		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: src/Enums/ExportResponseStatus.php
+
+		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: src/Enums/ExportStatus.php
+
+		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: src/Enums/GeneratorType.php
+
+		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: src/Events/ExportCompleted.php
+
+		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: src/Events/ExportInitialised.php
+
+		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: src/Exceptions/InvalidExportTypeException.php
+
+		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: src/Exceptions/InvalidProcessorException.php
+
+		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: src/Generator/Contracts/GeneratorDriver.php
+
+		-
+			message: '#^Illuminate\\Support\\Facades\\Storage facade should not be used\.$#'
+			identifier: larastanStrictRules.noFacadeRule
+			count: 3
+			path: src/Generator/CsvDriver.php
+
+		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: src/Generator/CsvDriver.php
+
+		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: src/Generator/GeneratorFile.php
+
+		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: src/Generator/GeneratorManager.php
+
+		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: src/GraphQL/Contracts/ExportValidator.php
+
+		-
+			message: '#^Global helper function ''event'' should not be used\.$#'
+			identifier: larastanStrictRules.noGlobalLaravelFunction
+			count: 1
+			path: src/GraphQL/Mutations/CreateExport.php
+
+		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: src/GraphQL/Mutations/CreateExport.php
+
+		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: src/GraphQL/NullExportValidator.php
+
+		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: src/Models/Export.php
+
+		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: src/Processor/Contracts/ProcessorDriver.php
+
+		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: src/Processor/EloquentProcessor.php
+
+		-
+			message: '#^Parameter \#2 \$value of method Illuminate\\Support\\Collection\<\(int\|string\),string\>\:\:put\(\) expects string, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/Processor/EloquentProcessor.php
+
+		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: src/Processor/ProcessorData.php
+
+		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: src/Processor/ProcessorRepository.php
+
+		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: src/Services/CreateExport.php
+
+		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: src/Services/CreateExportDTO.php
+
+		-
+			message: '#^Global helper function ''event'' should not be used\.$#'
+			identifier: larastanStrictRules.noGlobalLaravelFunction
+			count: 1
+			path: src/Services/UpdateExport.php
+
+		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: src/Services/UpdateExport.php
+
+		-
+			message: '#^PHP files should declare strict types\.$#'
+			identifier: worksome.declareStrictTypes
+			count: 1
+			path: src/Services/UpdateExportDTO.php
