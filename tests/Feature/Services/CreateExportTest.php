@@ -29,7 +29,7 @@ it('can create an export', function () {
 
     $result = $service->run();
 
-    expect($result->status)->toBe(ExportStatus::AWAITING);
+    expect($result->status)->toBe(ExportStatus::Awaiting);
     expect($result->user_id)->toBe($args['userId']);
     expect($result->account_id)->toBe($args['accountId']);
     expect($result->account_type)->toBe($args['accountType']);

@@ -37,11 +37,13 @@ it('can create an export', function () {
 
     Event::assertDispatched(ExportInitialised::class);
 
-    expect($response['status'])->toBe(ExportResponseStatus::SUCCESS);
+    expect($response['status'])->toBe(ExportResponseStatus::Success);
 
     $export = Export::latest('created_at')->first()->refresh();
-    expect($export->args['dateFrom'])->toBe('2021-01-01');
-    expect($export->args['dateTo'])->toBe('2021-01-02');
+
+    expect($export->args)
+        ->dateFrom->toBe('2021-01-01')
+        ->dateTo->toBe('2021-01-02');
 });
 
 it('can exports with correct dates', function () {
@@ -68,6 +70,7 @@ it('can exports with correct dates', function () {
     (new CreateExport($service, $validator))->__invoke(null, $args);
 
     $export = Export::latest('created_at')->first()->refresh();
-    expect($export->args['dateFrom'])->toBe('2022-01-01');
-    expect($export->args['dateTo'])->toBe('2022-01-01');
+    expect($export->args)
+        ->dateFrom->toBe('2022-01-01')
+        ->dateTo->toBe('2022-01-01');
 });
