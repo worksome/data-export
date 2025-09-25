@@ -2,12 +2,11 @@
 
 namespace Worksome\DataExport\Enums;
 
-use BenSampo\Enum\Enum;
+use GraphQL\Type\Definition\Description;
 
-/**
- * @method static static CSV()
- */
-final class GeneratorType extends Enum
+#[Description('The types of export that can be generated.')]
+enum GeneratorType: string
 {
-    public const CSV = 'CSV';
+    #[Description('Comma-separated values (CSV).')]
+    case CSV = 'CSV';
 }

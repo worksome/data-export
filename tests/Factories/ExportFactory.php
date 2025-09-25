@@ -13,7 +13,7 @@ class ExportFactory extends Factory
     public function definition(): array
     {
         return [
-            'status'       => ExportStatus::AWAITING,
+            'status'       => ExportStatus::Awaiting,
             'user_id'      => 1,
             'account_id'   => 1,
             'account_type' => 'user',
