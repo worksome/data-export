@@ -4,25 +4,25 @@
     "type": "library",
     "license": "MIT",
     "require": {
-        "php": "^8.3",
+        "php": "^8.4",
         "guzzlehttp/guzzle": "^7.8",
-        "illuminate/container": "^11.0 || ^12.0",
-        "illuminate/contracts": "^11.0 || ^12.0",
-        "illuminate/database": "^11.0 || ^12.0",
-        "illuminate/support": "^11.0 || ^12.0",
-        "nesbot/carbon": "^2.72 || ^3.0",
+        "illuminate/container": "^12.0 || ^13.0",
+        "illuminate/contracts": "^12.0 || ^13.0",
+        "illuminate/database": "^12.0 || ^13.0",
+        "illuminate/support": "^12.0 || ^13.0",
+        "nesbot/carbon": "^3.0",
         "nuwave/lighthouse": "^6.54",
-        "phpoffice/phpspreadsheet": "^1.29.10 || ^2.3.8",
-        "symfony/dependency-injection": "^6.4 || ^7.0",
-        "worksome/graphql-helpers": "^0.1.15"
+        "phpoffice/phpspreadsheet": "^1.30 || ^2.3.8 || ^5.4",
+        "symfony/dependency-injection": "^7.0 || ^8.0",
+        "worksome/graphql-helpers": "^0.1.18"
     },
     "require-dev": {
-        "larastan/larastan": "^3.1",
+        "larastan/larastan": "^3.9",
         "nunomaduro/collision": "^7.10 || ^8.1.1",
-        "orchestra/testbench": "^9.12 || ^10.1",
-        "pestphp/pest": "^3.7",
-        "pestphp/pest-plugin-laravel": "^3.1",
-        "worksome/coding-style": "^3.2"
+        "orchestra/testbench": "^10.8 || ^11.0",
+        "pestphp/pest": "^4.4",
+        "pestphp/pest-plugin-laravel": "^4.1",
+        "worksome/coding-style": "^3.4"
     },
     "autoload": {
         "psr-4": {
