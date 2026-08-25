@@ -73,8 +73,12 @@ abstract class EloquentProcessor implements ProcessorDriver
                 $optional = $this->optional($item);
                 $additionalKeys = array_keys($additional);
 
+                // Only the model's own attributes can become columns, so skip its
+                // relations - serialising them cost queries and was thrown away below.
+                $attributes = $allowedColumns->isEmpty() ? [] : $item->attributesToArray();
+
                 // Merge fieldsets
-                $item = collect(array_merge($item->toArray(), $additional));
+                $item = collect(array_merge($attributes, $additional));
 
                 // Only let through the desired columns
                 $item = $item->only($allowedColumns->concat($additionalKeys));

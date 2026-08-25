@@ -14,8 +14,15 @@ abstract class TestCase extends OrchestraTestCase
 
         $this->artisan('migrate', ['--database' => 'ws-testing'])->run();
 
+        Schema::create('teams', function ($table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->timestamps();
+        });
+
         Schema::create('users', function ($table) {
             $table->increments('id');
+            $table->unsignedInteger('team_id')->nullable();
             $table->string('name');
             $table->string('email');
             $table->boolean('is_admin')->default(0);

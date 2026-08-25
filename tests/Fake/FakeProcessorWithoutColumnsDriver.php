@@ -1,0 +1,33 @@
+<?php
+
+namespace Worksome\DataExport\Tests\Fake;
+
+use Worksome\DataExport\Models\Export;
+use Worksome\DataExport\Processor\EloquentProcessor;
+use Worksome\DataExport\Processor\ProcessorData;
+use Worksome\DataExport\Tests\Fake\Models\User;
+
+class FakeProcessorWithoutColumnsDriver extends EloquentProcessor
+{
+    public string $type = 'fake';
+
+    public array $columns = [];
+
+    public function process(Export $export): ProcessorData
+    {
+        $query = User::query()->with('team');
+
+        $data = $this->filterQuery($query);
+
+        return new ProcessorData($data, $this->type);
+    }
+
+    /** @param User $item */
+    public function additional($item): array
+    {
+        return [
+            'User ID' => $item->id,
+            'Team' => $item->team?->name,
+        ];
+    }
+}
