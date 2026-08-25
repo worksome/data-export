@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\DB;
 use Worksome\DataExport\Models\Export;
 use Worksome\DataExport\Tests\Factories\UserFactory;
 use Worksome\DataExport\Tests\Fake\FakeProcessorDriver;
+use Worksome\DataExport\Tests\Fake\FakeProcessorWithCustomToArrayDriver;
 use Worksome\DataExport\Tests\Fake\FakeProcessorWithOptionalDriver;
 use Worksome\DataExport\Tests\Fake\FakeProcessorWithoutColumnsDriver;
 use Worksome\DataExport\Tests\Fake\FakeProcessorWithRelationDriver;
@@ -131,6 +132,21 @@ it('does not read model attributes when the processor declares no columns', func
     expect($data)->toBe([
         ['Team' => 'Team One'],
         ['Team' => 'Team Two'],
+    ]);
+});
+
+it('honours a model that declares its own toArray', function () {
+    UserFactory::new()->create([
+        'name' => 'User One',
+        'email' => 'one@example.com',
+    ]);
+
+    $data = (new FakeProcessorWithCustomToArrayDriver())->process(new Export())->getData();
+
+    // The model redacts the address when it serialises itself, so the export
+    // must not fall back to the raw attribute.
+    expect($data)->toBe([
+        ['User ID' => '1', 'Email' => 'redacted'],
     ]);
 });
 
