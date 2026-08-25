@@ -5,7 +5,7 @@ namespace Worksome\DataExport\Tests\Fake;
 use Worksome\DataExport\Models\Export;
 use Worksome\DataExport\Processor\EloquentProcessor;
 use Worksome\DataExport\Processor\ProcessorData;
-use Worksome\DataExport\Tests\Fake\Models\User;
+use Worksome\DataExport\Tests\Fake\Models\Team;
 
 class FakeProcessorWithoutColumnsDriver extends EloquentProcessor
 {
@@ -15,19 +15,18 @@ class FakeProcessorWithoutColumnsDriver extends EloquentProcessor
 
     public function process(Export $export): ProcessorData
     {
-        $query = User::query()->with('team');
+        // Members are deliberately not eager-loaded, so serialising a team's
+        // attributes runs its appended accessor and queries them.
+        $query = Team::query();
 
         $data = $this->filterQuery($query);
 
         return new ProcessorData($data, $this->type);
     }
 
-    /** @param User $item */
+    /** @param Team $item */
     public function additional($item): array
     {
-        return [
-            'User ID' => $item->id,
-            'Team' => $item->team?->name,
-        ];
+        return ['Team' => $item->name];
     }
 }

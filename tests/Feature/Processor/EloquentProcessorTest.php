@@ -124,11 +124,13 @@ it('does not read model attributes when the processor declares no columns', func
 
     $data = (new FakeProcessorWithoutColumnsDriver())->process(new Export())->getData();
 
-    expect($queries)->toHaveCount(2);
+    // Only the chunk query over teams. Reading a team's attributes would run its
+    // appended accessor, which queries the team's members.
+    expect($queries)->toHaveCount(1);
 
     expect($data)->toBe([
-        ['User ID' => '1', 'Team' => 'Team One'],
-        ['User ID' => '2', 'Team' => 'Team Two'],
+        ['Team' => 'Team One'],
+        ['Team' => 'Team Two'],
     ]);
 });
 
