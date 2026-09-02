@@ -1,7 +1,7 @@
 # Worksome Data Export Package
 
-[![Tests](https://github.com/worksome/data-export/actions/workflows/main.yml/badge.svg)](https://github.com/worksome/data-export/actions/workflows/main.yml)
-[![Code Analysis](https://github.com/worksome/data-export/actions/workflows/code-analysis.yml/badge.svg)](https://github.com/worksome/data-export/actions/workflows/code-analysis.yml)
+[![Tests](https://img.shields.io/github/actions/workflow/status/worksome/data-export/tests.yml?style=flat-square&label=Tests)](https://github.com/worksome/data-export/actions/workflows/main.yml)
+[![Code Analysis](https://img.shields.io/github/actions/workflow/status/worksome/data-export/static.yml?style=flat-square&label=Static%20Analysis)](https://github.com/worksome/data-export/actions/workflows/code-analysis.yml)
 
 ## Installation
 
