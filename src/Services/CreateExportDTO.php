@@ -5,14 +5,14 @@ namespace Worksome\DataExport\Services;
 class CreateExportDTO
 {
     public function __construct(
-        private int $userId,
-        private int $accountId,
-        private string $accountType,
-        private string $type,
-        private string $generatorType,
-        private array $deliveries,
-        private array $args,
-        private int|null $impersonatorId = null,
+        private readonly int $userId,
+        private readonly int $accountId,
+        private readonly string $accountType,
+        private readonly string $type,
+        private readonly string $generatorType,
+        private readonly array $deliveries,
+        private readonly array $args,
+        private readonly int|null $impersonatorId = null,
     ) {
     }
 

@@ -8,8 +8,8 @@ use Worksome\DataExport\Models\Export;
 class UpdateExportDTO
 {
     public function __construct(
-        private Export $export,
-        private GeneratorFile $generatorFile,
+        private readonly Export $export,
+        private readonly GeneratorFile $generatorFile,
     ) {
     }
 

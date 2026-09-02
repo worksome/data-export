@@ -5,11 +5,11 @@ namespace Worksome\DataExport\Generator;
 class GeneratorFile
 {
     public function __construct(
-        private string $path,
-        private int $size,
-        private string $url,
-        private int $count,
-        private string $mimeType,
+        private readonly string $path,
+        private readonly int $size,
+        private readonly string $url,
+        private readonly int $count,
+        private readonly string $mimeType,
     ) {
     }
 

@@ -25,8 +25,6 @@ abstract class EloquentProcessor implements ProcessorDriver
 
     /**
      * Additional data fields to be included for each record in the export.
-     *
-     * @return array
      */
     public function additional($item): array
     {
