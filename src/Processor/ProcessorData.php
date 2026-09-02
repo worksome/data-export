@@ -5,8 +5,8 @@ namespace Worksome\DataExport\Processor;
 class ProcessorData
 {
     public function __construct(
-        private array $data,
-        private string $type,
+        private readonly array $data,
+        private readonly string $type,
     ) {
     }
 

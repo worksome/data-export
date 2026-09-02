@@ -11,8 +11,8 @@ use Worksome\DataExport\Services\CreateExportDTO;
 class CreateExport
 {
     public function __construct(
-        private CreateExportService $createExportService,
-        private ExportValidator $exportValidator,
+        private readonly CreateExportService $createExportService,
+        private readonly ExportValidator $exportValidator,
     ) {
     }
 
