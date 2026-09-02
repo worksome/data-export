@@ -2,10 +2,15 @@
 
 namespace Worksome\DataExport\Tests\Feature\Processor;
 
+use Illuminate\Support\Facades\DB;
 use Worksome\DataExport\Models\Export;
 use Worksome\DataExport\Tests\Factories\UserFactory;
 use Worksome\DataExport\Tests\Fake\FakeProcessorDriver;
+use Worksome\DataExport\Tests\Fake\FakeProcessorWithCustomToArrayDriver;
 use Worksome\DataExport\Tests\Fake\FakeProcessorWithOptionalDriver;
+use Worksome\DataExport\Tests\Fake\FakeProcessorWithoutColumnsDriver;
+use Worksome\DataExport\Tests\Fake\FakeProcessorWithRelationDriver;
+use Worksome\DataExport\Tests\Fake\Models\Team;
 
 it('can process a query that returns no results', function () {
     $export = new Export();
@@ -89,3 +94,71 @@ it('should correctly process compliance data', function () {
         'Compliance US' => 'none',
     ]);
 });
+
+it('does not serialise relations that are not exported', function () {
+    createUsersInTeams();
+
+    $queries = [];
+    DB::listen(function ($query) use (&$queries) {
+        $queries[] = $query->sql;
+    });
+
+    $data = (new FakeProcessorWithRelationDriver())->process(new Export())->getData();
+
+    // One query for the users, one for the eagerly loaded teams. Serialising a
+    // team would query its members on top of that.
+    expect($queries)->toHaveCount(2);
+
+    expect($data)->toBe([
+        ['User ID' => '1', 'name' => 'User One', 'Team' => 'Team One'],
+        ['User ID' => '2', 'name' => 'User Two', 'Team' => 'Team Two'],
+    ]);
+});
+
+it('does not read model attributes when the processor declares no columns', function () {
+    createUsersInTeams();
+
+    $queries = [];
+    DB::listen(function ($query) use (&$queries) {
+        $queries[] = $query->sql;
+    });
+
+    $data = (new FakeProcessorWithoutColumnsDriver())->process(new Export())->getData();
+
+    // Only the chunk query over teams. Reading a team's attributes would run its
+    // appended accessor, which queries the team's members.
+    expect($queries)->toHaveCount(1);
+
+    expect($data)->toBe([
+        ['Team' => 'Team One'],
+        ['Team' => 'Team Two'],
+    ]);
+});
+
+it('honours a model that declares its own toArray', function () {
+    UserFactory::new()->create([
+        'name' => 'User One',
+        'email' => 'one@example.com',
+    ]);
+
+    $data = (new FakeProcessorWithCustomToArrayDriver())->process(new Export())->getData();
+
+    // The model redacts the address when it serialises itself, so the export
+    // must not fall back to the raw attribute.
+    expect($data)->toBe([
+        ['User ID' => '1', 'Email' => 'redacted'],
+    ]);
+});
+
+function createUsersInTeams(): void
+{
+    UserFactory::new()->create([
+        'name' => 'User One',
+        'team_id' => Team::forceCreate(['name' => 'Team One'])->id,
+    ]);
+
+    UserFactory::new()->create([
+        'name' => 'User Two',
+        'team_id' => Team::forceCreate(['name' => 'Team Two'])->id,
+    ]);
+}

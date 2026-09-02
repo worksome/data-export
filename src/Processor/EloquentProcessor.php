@@ -4,7 +4,9 @@ namespace Worksome\DataExport\Processor;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
+use ReflectionMethod;
 use Worksome\DataExport\Processor\Contracts\ProcessorDriver;
 
 abstract class EloquentProcessor implements ProcessorDriver
@@ -22,6 +24,13 @@ abstract class EloquentProcessor implements ProcessorDriver
      * @var array
      */
     protected array $columns = [];
+
+    /**
+     * Whether a model class declares its own toArray(), keyed by class name.
+     *
+     * @var array<class-string, bool>
+     */
+    private array $hasCustomToArray = [];
 
     /**
      * Additional data fields to be included for each record in the export.
@@ -44,6 +53,27 @@ abstract class EloquentProcessor implements ProcessorDriver
     public function formatDate(string $date): string
     {
         return Carbon::parse($date)->format('Y-m-d');
+    }
+
+    /**
+     * Relations can never be exported columns, so only the attributes are needed.
+     * A model with its own toArray() may reshape those, so it keeps the full call.
+     *
+     * @return array<string, mixed>
+     */
+    private function serialiseAttributes(Model $item): array
+    {
+        $class = $item::class;
+
+        if (! isset($this->hasCustomToArray[$class])) {
+            $this->hasCustomToArray[$class] = (new ReflectionMethod($class, 'toArray'))
+                ->getDeclaringClass()
+                ->getName() !== Model::class;
+        }
+
+        return $this->hasCustomToArray[$class]
+            ? $item->toArray()
+            : $item->attributesToArray();
     }
 
     protected function columns(): Collection
@@ -71,8 +101,12 @@ abstract class EloquentProcessor implements ProcessorDriver
                 $optional = $this->optional($item);
                 $additionalKeys = array_keys($additional);
 
+                // Nothing here survives when no columns are declared, and relations
+                // can never be columns, so both were pure cost before.
+                $attributes = $allowedColumns->isEmpty() ? [] : $this->serialiseAttributes($item);
+
                 // Merge fieldsets
-                $item = collect(array_merge($item->toArray(), $additional));
+                $item = collect(array_merge($attributes, $additional));
 
                 // Only let through the desired columns
                 $item = $item->only($allowedColumns->concat($additionalKeys));
