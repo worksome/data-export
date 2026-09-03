@@ -2,23 +2,26 @@
 
 namespace Worksome\DataExport\Generator;
 
-use GuzzleHttp\Psr7\Stream;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Csv;
-use PhpOffice\PhpSpreadsheet\Writer\IWriter;
+use ValueError;
 use Worksome\DataExport\Generator\Contracts\GeneratorDriver;
 use Worksome\DataExport\Processor\ProcessorData;
 
 class CsvDriver implements GeneratorDriver
 {
+    private const string DELIMITER = ',';
+
+    private const string ENCLOSURE = '"';
+
+    private const string LINE_ENDING = "\r\n";
+
+    /** Rows are written to memory up to this size, and to a temp file beyond it. */
+    private const int BUFFER_BYTES = 8 * 1024 * 1024;
+
     public function generate(ProcessorData $processorData): GeneratorFile
     {
-        $csv = $this->exportToCsv($processorData);
-
         $filename = sprintf(
             'export-%s-%s-%s',
             $processorData->getType(),
@@ -26,27 +29,41 @@ class CsvDriver implements GeneratorDriver
             Str::random(40)
         );
 
-        return $this->saveToStorage($filename, $csv, $processorData);
+        return $this->saveToStorage($filename, $this->toStream($processorData), $processorData);
     }
 
-    public function exportToCsv(ProcessorData $processorData)
+    /**
+     * The whole file as a string. Streams via generate() instead for anything
+     * large enough that holding it in memory matters.
+     */
+    public function exportToCsv(ProcessorData $processorData): string
     {
-        $spreadsheet = $this->toSpreadsheet($processorData->getData());
-        $writer = $this->toCsvWriter($spreadsheet);
+        $stream = $this->toStream($processorData);
 
-        ob_start();
-        $writer->save('php://output');
-        $content = ob_get_contents();
-        ob_end_clean();
+        rewind($stream);
+        $contents = stream_get_contents($stream);
+        fclose($stream);
 
-        return $content;
+        return $contents === false ? '' : $contents;
     }
 
-    public function saveToStorage($filenameWithoutExtension, $content, ProcessorData $processorData): GeneratorFile
-    {
+    /**
+     * @param resource $stream
+     */
+    public function saveToStorage(
+        string $filenameWithoutExtension,
+        $stream,
+        ProcessorData $processorData,
+    ): GeneratorFile {
+        if (! is_resource($stream)) {
+            throw new ValueError('The stream must be a resource.');
+        }
+
         $filepath = sprintf('exports/%s.csv', $filenameWithoutExtension);
 
-        Storage::put($filepath, $content);
+        rewind($stream);
+        Storage::writeStream($filepath, $stream);
+        fclose($stream);
 
         return new GeneratorFile(
             path: $filepath,
@@ -57,44 +74,106 @@ class CsvDriver implements GeneratorDriver
         );
     }
 
-    public function toCsvWriter(Spreadsheet $spreadsheet): Csv
+    /**
+     * @return resource
+     */
+    public function toStream(ProcessorData $processorData)
     {
-        $writer = new Csv($spreadsheet);
-        $writer->setEnclosureRequired(false);
-        $writer->setLineEnding("\r\n");
-        $writer->setDelimiter(',');
+        $stream = fopen('php://temp/maxmemory:' . self::BUFFER_BYTES, 'w+b');
 
-        return $writer;
+        if ($stream === false) {
+            throw new \RuntimeException('Unable to open a stream to write the export to.');
+        }
+
+        $this->writeCsv($processorData, $stream);
+
+        return $stream;
     }
 
-    public function toSpreadsheet(array $entries): Spreadsheet
+    /**
+     * Writes the header and every row to $stream, and returns the rows written.
+     *
+     * @param resource $stream
+     */
+    public function writeCsv(ProcessorData $processorData, $stream): int
     {
-        $spreadsheet = new Spreadsheet();
+        if (! is_resource($stream)) {
+            throw new ValueError('The stream must be a resource.');
+        }
 
-        $sheet = $spreadsheet->getActiveSheet();
+        $rows = $processorData->getData();
+        $columns = $this->columns($rows);
 
-        $data = Collection::make($entries);
-        $data = $data->map(fn ($item) => $item);
+        if ($columns === []) {
+            return 0;
+        }
 
-        $spreadsheetData = $data
-            ->prepend(array_keys($data->first() ?? []))
-            ->toArray();
+        $this->writeRow($stream, $columns);
 
-        $sheet->fromArray($spreadsheetData);
+        $written = 0;
 
-        return $spreadsheet;
+        foreach ($rows as $row) {
+            $fields = [];
+
+            foreach ($columns as $column) {
+                $fields[] = $row[$column] ?? '';
+            }
+
+            $this->writeRow($stream, $fields);
+            $written++;
+        }
+
+        return $written;
     }
 
-    public function toStream(IWriter $writer): Stream
+    /**
+     * The header names every column any row has, in the order first seen, so a
+     * row whose keys differ cannot line up against the wrong header.
+     *
+     * @param array<array-key, array<array-key, mixed>> $rows
+     *
+     * @return array<int, array-key>
+     */
+    private function columns(array $rows): array
     {
-        // Write the spreadsheet to a resource.
-        $resource = fopen('php://temp', 'w+');
+        $columns = [];
 
-        $writer->save($resource);
+        foreach ($rows as $row) {
+            foreach (array_keys($row) as $key) {
+                $columns[$key] = true;
+            }
+        }
 
-        // Rewind the resource and convert to PSR stream
-        rewind($resource);
+        return array_keys($columns);
+    }
 
-        return new Stream($resource);
+    /**
+     * @param resource                $stream
+     * @param array<array-key, mixed> $fields
+     */
+    private function writeRow($stream, array $fields): void
+    {
+        $line = implode(self::DELIMITER, array_map(
+            fn (mixed $field): string => $this->field((string) $field),
+            $fields
+        ));
+
+        fwrite($stream, $line . self::LINE_ENDING);
+    }
+
+    /**
+     * A value is quoted only when leaving it bare would break the row, so the
+     * file keeps the shape it has always had. A bare carriage return counts,
+     * because rows are separated by one.
+     */
+    private function field(string $value): string
+    {
+        if (strpbrk($value, self::DELIMITER . self::ENCLOSURE . "\r\n") === false) {
+            return $value;
+        }
+
+        return self::ENCLOSURE
+            . str_replace(self::ENCLOSURE, self::ENCLOSURE . self::ENCLOSURE, $value)
+            . self::ENCLOSURE;
     }
 }
