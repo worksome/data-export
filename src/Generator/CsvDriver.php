@@ -5,19 +5,20 @@ namespace Worksome\DataExport\Generator;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use ValueError;
 use Worksome\DataExport\Generator\Contracts\GeneratorDriver;
 use Worksome\DataExport\Processor\ProcessorData;
 
 class CsvDriver implements GeneratorDriver
 {
-    private const DELIMITER = ',';
+    private const string DELIMITER = ',';
 
-    private const ENCLOSURE = '"';
+    private const string ENCLOSURE = '"';
 
-    private const LINE_ENDING = "\r\n";
+    private const string LINE_ENDING = "\r\n";
 
     /** Rows are written to memory up to this size, and to a temp file beyond it. */
-    private const BUFFER_BYTES = 8 * 1024 * 1024;
+    private const int BUFFER_BYTES = 8 * 1024 * 1024;
 
     public function generate(ProcessorData $processorData): GeneratorFile
     {
@@ -49,8 +50,15 @@ class CsvDriver implements GeneratorDriver
     /**
      * @param resource $stream
      */
-    public function saveToStorage($filenameWithoutExtension, $stream, ProcessorData $processorData): GeneratorFile
-    {
+    public function saveToStorage(
+        string $filenameWithoutExtension,
+        $stream,
+        ProcessorData $processorData,
+    ): GeneratorFile {
+        if (! is_resource($stream)) {
+            throw new ValueError('The stream must be a resource.');
+        }
+
         $filepath = sprintf('exports/%s.csv', $filenameWithoutExtension);
 
         rewind($stream);
@@ -87,13 +95,12 @@ class CsvDriver implements GeneratorDriver
      *
      * @param resource $stream
      */
-    /**
-     * Writes the header and every row to $stream, and returns the rows written.
-     *
-     * @param resource $stream
-     */
     public function writeCsv(ProcessorData $processorData, $stream): int
     {
+        if (! is_resource($stream)) {
+            throw new ValueError('The stream must be a resource.');
+        }
+
         $rows = $processorData->getData();
         $columns = $this->columns($rows);
 
