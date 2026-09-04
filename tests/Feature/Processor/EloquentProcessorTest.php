@@ -19,7 +19,7 @@ it('can process a query that returns no results', function () {
 
     $processedData = $processor->process($export);
 
-    $data = $processedData->getData();
+    $data = iterator_to_array($processedData->rows(), false);
 
     expect($data)->toBeEmpty();
 });
@@ -41,7 +41,7 @@ it('can process a query that returns results with filtered columns', function ()
 
     $processedData = $processor->process($export);
 
-    $data = $processedData->getData();
+    $data = iterator_to_array($processedData->rows(), false);
 
     expect($data)->not->toBeEmpty();
     expect($data)->toHaveCount(2);
@@ -71,7 +71,7 @@ it('should correctly process compliance data', function () {
     $export = new Export();
     $processor = new FakeProcessorWithOptionalDriver();
     $processedData = $processor->process($export);
-    $data = $processedData->getData();
+    $data = iterator_to_array($processedData->rows(), false);
 
     foreach ($data as $item) {
         $this->assertArrayHasKey('Compliance UK', $item);
@@ -103,7 +103,7 @@ it('does not serialise relations that are not exported', function () {
         $queries[] = $query->sql;
     });
 
-    $data = (new FakeProcessorWithRelationDriver())->process(new Export())->getData();
+    $data = iterator_to_array((new FakeProcessorWithRelationDriver())->process(new Export())->rows(), false);
 
     // One query for the users, one for the eagerly loaded teams. Serialising a
     // team would query its members on top of that.
@@ -123,7 +123,7 @@ it('does not read model attributes when the processor declares no columns', func
         $queries[] = $query->sql;
     });
 
-    $data = (new FakeProcessorWithoutColumnsDriver())->process(new Export())->getData();
+    $data = iterator_to_array((new FakeProcessorWithoutColumnsDriver())->process(new Export())->rows(), false);
 
     // Only the chunk query over teams. Reading a team's attributes would run its
     // appended accessor, which queries the team's members.
@@ -141,7 +141,7 @@ it('honours a model that declares its own toArray', function () {
         'email' => 'one@example.com',
     ]);
 
-    $data = (new FakeProcessorWithCustomToArrayDriver())->process(new Export())->getData();
+    $data = iterator_to_array((new FakeProcessorWithCustomToArrayDriver())->process(new Export())->rows(), false);
 
     // The model redacts the address when it serialises itself, so the export
     // must not fall back to the raw attribute.
