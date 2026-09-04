@@ -123,3 +123,13 @@ it('quotes only the values that need it', function () {
 it('returns an empty string when there is nothing to export', function () {
     expect((new CsvDriver())->exportToCsv(new ProcessorData([], 'empty')))->toBe('');
 });
+
+it('writes a row stream without loading it, with the header from its columns', function () {
+    $rows = new \Worksome\DataExport\Processor\RowStream();
+    $rows->push(['id' => '1', 'name' => 'One'], [['UK' => 'applies']]);
+    $rows->push(['id' => '2', 'name' => 'Two'], []);
+
+    $csv = (new CsvDriver())->exportToCsv(new ProcessorData($rows, 'people'));
+
+    expect($csv)->toBe("id,name,UK\r\n1,One,applies\r\n2,Two,\r\n");
+});
