@@ -97,6 +97,10 @@ class CsvDriver implements GeneratorDriver
      */
     public function writeCsv(ProcessorData $processorData, $stream): int
     {
+        if (! is_resource($stream)) {
+            throw new ValueError('The stream must be a resource.');
+        }
+
         $columns = $processorData->getColumns();
 
         if ($columns === []) {

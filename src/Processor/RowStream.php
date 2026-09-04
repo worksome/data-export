@@ -8,6 +8,7 @@ use Countable;
 use Generator;
 use IteratorAggregate;
 use RuntimeException;
+use Stringable;
 
 /**
  * The rows of an export, kept in a buffer that spills to disk rather than in memory.
@@ -16,7 +17,7 @@ use RuntimeException;
  * known - an optional column only exists once some row has a value for it -
  * so reading the rows back fills each one out to the final column list.
  *
- * @implements IteratorAggregate<int, array<array-key, mixed>>
+ * @implements IteratorAggregate<int, array<array-key, string>>
  */
 final class RowStream implements IteratorAggregate, Countable
 {
@@ -53,25 +54,38 @@ final class RowStream implements IteratorAggregate, Countable
     }
 
     /**
+     * Values are stored as the strings the file will contain, so nothing is lost
+     * or reinterpreted on the way through the buffer.
+     *
      * @param array<array-key, mixed>             $row      the row's fixed columns
      * @param array<int, array<array-key, mixed>> $optional one single-entry array per optional value
      */
     public function push(array $row, array $optional): void
     {
-        foreach (array_keys($row) as $key) {
+        $fixed = [];
+
+        foreach ($row as $key => $value) {
             $this->columns[$key] = true;
+            $fixed[$key] = $this->stringify($value);
         }
 
+        // A later optional value for the same column wins, as array_merge would have it.
+        $merged = [];
+
         foreach ($optional as $entry) {
-            foreach (array_keys($entry) as $key) {
+            foreach ($entry as $key => $value) {
                 $this->optionalColumns[$key] = true;
+                $merged[$key] = $this->stringify($value);
             }
         }
 
-        fwrite($this->buffer, json_encode(
-            [$row, $optional],
-            JSON_THROW_ON_ERROR|JSON_UNESCAPED_UNICODE|JSON_UNESCAPED_SLASHES
-        ) . "\n");
+        // Length-framed so a value may contain anything, including newlines.
+        $payload = serialize([$fixed, $merged]);
+        $frame = strlen($payload) . "\n" . $payload;
+
+        if (fwrite($this->buffer, $frame) !== strlen($frame)) {
+            throw new RuntimeException('Unable to write an export row to the buffer.');
+        }
 
         $this->count++;
     }
@@ -97,7 +111,7 @@ final class RowStream implements IteratorAggregate, Countable
     /**
      * Every row, filled out to the final column list. Can be iterated more than once.
      *
-     * @return Generator<int, array<array-key, mixed>>
+     * @return Generator<int, array<array-key, string>>
      */
     public function getIterator(): Generator
     {
@@ -105,26 +119,60 @@ final class RowStream implements IteratorAggregate, Countable
 
         rewind($this->buffer);
 
-        while (($line = fgets($this->buffer)) !== false) {
-            /** @var array{0: array<array-key, mixed>, 1: array<int, array<array-key, mixed>>} $decoded */
-            $decoded = json_decode($line, true, 512, JSON_THROW_ON_ERROR);
-            [$row, $optional] = $decoded;
+        while (($header = fgets($this->buffer)) !== false) {
+            $payload = $this->read((int) $header);
 
-            $optionals = $optional === [] ? [] : array_merge(...$optional);
+            /** @var array{0: array<array-key, string>, 1: array<array-key, string>} $decoded */
+            $decoded = unserialize($payload, ['allowed_classes' => false]);
+            [$fixed, $optionals] = $decoded;
 
             $filled = [];
 
             foreach ($columns as $column) {
                 // An optional column wins over a fixed one of the same name, and a
                 // row without a value for it gets an empty string.
-                if (isset($this->optionalColumns[$column])) {
-                    $filled[$column] = isset($optionals[$column]) ? $optionals[$column] : '';
-                } else {
-                    $filled[$column] = $row[$column] ?? '';
-                }
+                $filled[$column] = isset($this->optionalColumns[$column])
+                    ? ($optionals[$column] ?? '')
+                    : ($fixed[$column] ?? '');
             }
 
             yield $filled;
         }
+    }
+
+    private function read(int $length): string
+    {
+        $payload = '';
+
+        while (strlen($payload) < $length) {
+            $chunk = fread($this->buffer, $length - strlen($payload));
+
+            if ($chunk === false || $chunk === '') {
+                throw new RuntimeException('The export row buffer is truncated.');
+            }
+
+            $payload .= $chunk;
+        }
+
+        return $payload;
+    }
+
+    private function stringify(mixed $value): string
+    {
+        if ($value === null) {
+            return '';
+        }
+
+        if (is_string($value)) {
+            return $value;
+        }
+
+        if (is_scalar($value) || $value instanceof Stringable) {
+            return (string) $value;
+        }
+
+        throw new RuntimeException(
+            sprintf('An export value must be a string or stringable, %s given.', get_debug_type($value))
+        );
     }
 }

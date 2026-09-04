@@ -48,10 +48,46 @@ it('yields nothing and no columns when empty', function () {
         ->and(iterator_to_array($rows, false))->toBe([]);
 });
 
+it('keeps values byte for byte, including newlines and bytes that are not valid UTF-8', function () {
+    $rows = new RowStream();
+    $rows->push(['note' => "line one\nline two"], [['raw' => "bad \xB1\xFF bytes"]]);
+
+    expect(iterator_to_array($rows, false))->toBe([
+        ['note' => "line one\nline two", 'raw' => "bad \xB1\xFF bytes"],
+    ]);
+});
+
+it('stores values as the strings the file will contain', function () {
+    $stringable = new class() implements \Stringable {
+        public function __toString(): string
+        {
+            return 'from __toString';
+        }
+    };
+
+    $rows = new RowStream();
+    $rows->push(
+        ['id' => 7, 'flag' => true, 'off' => false, 'none' => null],
+        [['label' => $stringable], ['rate' => 12.5]]
+    );
+
+    expect(iterator_to_array($rows, false))->toBe([
+        ['id' => '7', 'flag' => '1', 'off' => '', 'none' => '', 'label' => 'from __toString', 'rate' => '12.5'],
+    ]);
+});
+
+it('refuses a value it cannot turn into a string', function () {
+    $rows = new RowStream();
+
+    expect(fn () => $rows->push(['id' => ['not', 'a', 'string']], []))
+        ->toThrow(\RuntimeException::class);
+});
+
 it('does not hold the rows in memory', function () {
     $rows = new RowStream();
     $row = array_fill_keys(array_map(fn ($i) => "column_$i", range(1, 20)), str_repeat('x', 40));
 
+    memory_reset_peak_usage();
     $before = memory_get_usage(true);
     for ($i = 0; $i < 50000; $i++) {
         $rows->push($row, [['extra' => 'y']]);

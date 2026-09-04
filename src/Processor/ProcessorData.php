@@ -5,10 +5,13 @@ namespace Worksome\DataExport\Processor;
 class ProcessorData
 {
     /**
-     * @param iterable<array-key, array<array-key, mixed>> $data
+     * Rows either already built as an array, or held in a stream that can be read
+     * more than once. A one-shot iterable would be exhausted by the first reader.
+     *
+     * @param array<array-key, array<array-key, mixed>>|RowStream $data
      */
     public function __construct(
-        private readonly iterable $data,
+        private readonly array|RowStream $data,
         private readonly string $type,
     ) {
     }
@@ -35,7 +38,7 @@ class ProcessorData
 
     public function getCount(): int
     {
-        return is_countable($this->data) ? count($this->data) : count($this->getData());
+        return count($this->data);
     }
 
     /**

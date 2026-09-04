@@ -133,3 +133,8 @@ it('writes a row stream without loading it, with the header from its columns', f
 
     expect($csv)->toBe("id,name,UK\r\n1,One,applies\r\n2,Two,\r\n");
 });
+
+it('rejects a stream that is not a resource, even when there is nothing to write', function () {
+    expect(fn () => (new CsvDriver())->writeCsv(new ProcessorData([], 'empty'), 'not a stream'))
+        ->toThrow(\ValueError::class);
+});
