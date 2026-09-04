@@ -33,6 +33,9 @@ final class RowStream implements IteratorAggregate, Countable
     /** @var array<array-key, true> the optional columns, in the order first seen */
     private array $optionalColumns = [];
 
+    /** How many of the fixed columns the first row had. */
+    private int $firstRowColumnCount = 0;
+
     private int $count = 0;
 
     public function __construct()
@@ -69,6 +72,10 @@ final class RowStream implements IteratorAggregate, Countable
             $fixed[$key] = $this->stringify($value);
         }
 
+        if ($this->count === 0) {
+            $this->firstRowColumnCount = count($this->columns);
+        }
+
         // A later optional value for the same column wins, as array_merge would have it.
         $merged = [];
 
@@ -91,16 +98,20 @@ final class RowStream implements IteratorAggregate, Countable
     }
 
     /**
-     * The fixed columns first, then any optional column that is not already one of them.
+     * The first row's columns, then the optional columns, then any column that only
+     * appears in a later row. A column keeps the first position it is given.
      *
      * @return array<int, array-key>
      */
     public function columns(): array
     {
-        return array_merge(
-            array_keys($this->columns),
-            array_keys(array_diff_key($this->optionalColumns, $this->columns)),
-        );
+        $fixed = array_keys($this->columns);
+
+        return array_values(array_unique(array_merge(
+            array_slice($fixed, 0, $this->firstRowColumnCount),
+            array_keys($this->optionalColumns),
+            array_slice($fixed, $this->firstRowColumnCount),
+        )));
     }
 
     public function count(): int

@@ -9,7 +9,7 @@ it('can retrieve the data', function () {
         'foo' => 'Bar',
     ], 'randomstuff');
 
-    expect($processorData->getData())->toBe([
+    expect($processorData->rows())->toBe([
         'foo' => 'Bar',
     ]);
 
@@ -28,10 +28,6 @@ it('streams rows and reports the columns and count for a row stream', function (
         ->and(iterator_to_array($processorData->rows(), false))->toBe([
             ['id' => '1', 'UK' => 'applies'],
             ['id' => '2', 'UK' => ''],
-        ])
-        ->and($processorData->getData())->toBe([
-            ['id' => '1', 'UK' => 'applies'],
-            ['id' => '2', 'UK' => ''],
         ]);
 });
 
@@ -43,5 +39,8 @@ it('derives the columns and count from a plain array of rows', function () {
 
     expect($processorData->getColumns())->toBe(['a', 'b', 'c'])
         ->and($processorData->getCount())->toBe(2)
-        ->and($processorData->rows())->toBe($processorData->getData());
+        ->and($processorData->rows())->toBe([
+            ['a' => '1', 'b' => '2'],
+            ['b' => '3', 'c' => '4'],
+        ]);
 });

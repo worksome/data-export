@@ -19,6 +19,19 @@ it('fills every row out to the final column list, fixed columns first', function
         ]);
 });
 
+it('places a column that only appears in a later row after the optional columns', function () {
+    $rows = new RowStream();
+    $rows->push(['id' => '1'], [['opt' => 'a']]);
+    $rows->push(['id' => '2', 'later' => 'b'], []);
+
+    // The first row's columns, then the optional ones, then the newcomer
+    expect($rows->columns())->toBe(['id', 'opt', 'later'])
+        ->and(iterator_to_array($rows, false))->toBe([
+            ['id' => '1', 'opt' => 'a', 'later' => ''],
+            ['id' => '2', 'opt' => '', 'later' => 'b'],
+        ]);
+});
+
 it('lets an optional value take precedence over a fixed column of the same name', function () {
     $rows = new RowStream();
     $rows->push(['id' => '1', 'status' => 'fixed'], [['status' => 'optional']]);

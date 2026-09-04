@@ -17,16 +17,6 @@ class ProcessorData
     }
 
     /**
-     * Every row, loaded into memory. Prefer rows() for anything large.
-     *
-     * @return array<array-key, array<array-key, mixed>>
-     */
-    public function getData(): array
-    {
-        return is_array($this->data) ? $this->data : iterator_to_array($this->data, false);
-    }
-
-    /**
      * The rows, one at a time.
      *
      * @return iterable<array-key, array<array-key, mixed>>
