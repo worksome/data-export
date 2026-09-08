@@ -120,11 +120,6 @@ parameters:
 			count: 1
 			path: src/Processor/EloquentProcessor.php
 
-		-
-			message: '#^Parameter \#2 \$value of method Illuminate\\Support\\Collection\<\(int\|string\),string\>\:\:put\(\) expects string, array given\.$#'
-			identifier: argument.type
-			count: 1
-			path: src/Processor/EloquentProcessor.php
 
 		-
 			message: '#^PHP files should declare strict types\.$#'

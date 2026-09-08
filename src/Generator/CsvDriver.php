@@ -69,7 +69,7 @@ class CsvDriver implements GeneratorDriver
             path: $filepath,
             size: Storage::size($filepath),
             url: Storage::url($filepath),
-            count: count($processorData->getData()),
+            count: $processorData->getCount(),
             mimeType: 'text/csv',
         );
     }
@@ -101,8 +101,7 @@ class CsvDriver implements GeneratorDriver
             throw new ValueError('The stream must be a resource.');
         }
 
-        $rows = $processorData->getData();
-        $columns = $this->columns($rows);
+        $columns = $processorData->getColumns();
 
         if ($columns === []) {
             return 0;
@@ -112,7 +111,7 @@ class CsvDriver implements GeneratorDriver
 
         $written = 0;
 
-        foreach ($rows as $row) {
+        foreach ($processorData->rows() as $row) {
             $fields = [];
 
             foreach ($columns as $column) {
@@ -124,27 +123,6 @@ class CsvDriver implements GeneratorDriver
         }
 
         return $written;
-    }
-
-    /**
-     * The header names every column any row has, in the order first seen, so a
-     * row whose keys differ cannot line up against the wrong header.
-     *
-     * @param array<array-key, array<array-key, mixed>> $rows
-     *
-     * @return array<int, array-key>
-     */
-    private function columns(array $rows): array
-    {
-        $columns = [];
-
-        foreach ($rows as $row) {
-            foreach (array_keys($row) as $key) {
-                $columns[$key] = true;
-            }
-        }
-
-        return array_keys($columns);
     }
 
     /**
