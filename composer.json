@@ -5,22 +5,23 @@
     "license": "MIT",
     "require": {
         "php": "^8.4",
-        "illuminate/container": "^12.0 || ^13.0",
-        "illuminate/contracts": "^12.0 || ^13.0",
-        "illuminate/database": "^12.0 || ^13.0",
-        "illuminate/support": "^12.0 || ^13.0",
+        "illuminate/container": "^13.0",
+        "illuminate/contracts": "^13.0",
+        "illuminate/database": "^13.0",
+        "illuminate/support": "^13.0",
         "nesbot/carbon": "^3.0",
         "nuwave/lighthouse": "^6.54",
-        "symfony/dependency-injection": "^7.0 || ^8.0",
-        "worksome/graphql-helpers": "^0.1.18"
+        "symfony/dependency-injection": "^8.0",
+        "worksome/graphql-helpers": "^0.1.19"
     },
     "require-dev": {
-        "larastan/larastan": "^3.9",
-        "nunomaduro/collision": "^7.10 || ^8.1.1",
-        "orchestra/testbench": "^10.8 || ^11.0",
-        "pestphp/pest": "^4.7 || ^5.1",
-        "pestphp/pest-plugin-laravel": "^4.1 || ^5.0",
-        "worksome/coding-style": "^5.2"
+        "canvural/larastan-strict-rules": "^3.0",
+        "larastan/larastan": "^3.13",
+        "nunomaduro/collision": "^8.1.1",
+        "orchestra/testbench": "^11.0",
+        "pestphp/pest": "^5.1",
+        "pestphp/pest-plugin-laravel": "^5.0",
+        "worksome/coding-style": "^6.0"
     },
     "autoload": {
         "psr-4": {
@@ -39,7 +40,8 @@
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "worksome/coding-style": true,
-            "dealerdirect/phpcodesniffer-composer-installer": true
+            "dealerdirect/phpcodesniffer-composer-installer": true,
+            "phpstan/extension-installer": true
         }
     },
     "scripts": {
